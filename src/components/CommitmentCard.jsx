@@ -17,7 +17,7 @@ export function CommitmentCard({ commitment, onClick }) {
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <p className="text-xs text-gray-400 truncate">{commitment.guest}</p>
+          <p className="text-xs text-gray-400 truncate">{commitment.guest} · {commitment.elapsed}</p>
           <p className="text-sm font-semibold text-gray-900 mt-0.5 leading-snug">{commitment.summary}</p>
           <p className="text-xs text-gray-400 mt-0.5">{commitment.stepLabel}</p>
         </div>

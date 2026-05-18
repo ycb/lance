@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { MiniChain } from '../../components/MiniChain'
+import { MiniChain } from '../../components/shared/MiniChain'
 
 const steps = [
   { id: '1', initials: 'MT', deptId: 'ME', status: 'complete'  },

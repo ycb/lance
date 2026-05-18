@@ -2,5 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-* { -webkit-tap-highlight-color: transparent; }
-body { background: #f3f4f6; }
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 217 60% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 217 60% 8%;
+    --primary: 217 100% 25%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 20% 95%;
+    --secondary-foreground: 217 100% 25%;
+    --muted: 217 10% 96%;
+    --muted-foreground: 217 10% 45%;
+    --accent: 217 20% 92%;
+    --accent-foreground: 217 100% 25%;
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 10% 88%;
+    --input: 217 10% 88%;
+    --ring: 217 100% 25%;
+    --radius: 0.625rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-gray-800 text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { Avatar } from '../../components/Avatar'
+import { Avatar } from '../../components/shared/Avatar'
 
 describe('Avatar', () => {
   it('renders initials', () => {

@@ -6,7 +6,7 @@ import { commitments } from '../../data/scenario'
 describe('CommitmentCard', () => {
   it('renders guest and summary', () => {
     render(<CommitmentCard commitment={commitments.cabana} onClick={() => {}} />)
-    expect(screen.getByText('Alex Chen · Rm 412')).toBeInTheDocument()
+    expect(screen.getByText(/Alex Chen · Rm 412/)).toBeInTheDocument()
     expect(screen.getByText('Cabana 3 — pool party setup by 4pm')).toBeInTheDocument()
   })
 

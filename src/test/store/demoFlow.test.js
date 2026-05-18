@@ -10,9 +10,19 @@ describe('useDemoFlow', () => {
     expect(useDemoFlow.getState().currentState).toBe('LOCK_SCREEN')
   })
 
-  it('advances to next state on advance()', () => {
+  it('has 7 states', () => {
+    expect(DEMO_STATES).toHaveLength(7)
+  })
+
+  it('second state is ISSUE_DETAIL_COMP', () => {
     useDemoFlow.getState().advance()
-    expect(useDemoFlow.getState().currentState).toBe('BOARD_INITIAL')
+    expect(useDemoFlow.getState().currentState).toBe('ISSUE_DETAIL_COMP')
+  })
+
+  it('third state is BOARD', () => {
+    useDemoFlow.getState().advance()
+    useDemoFlow.getState().advance()
+    expect(useDemoFlow.getState().currentState).toBe('BOARD')
   })
 
   it('advances through all states in order', () => {

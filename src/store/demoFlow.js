@@ -2,10 +2,9 @@ import { create } from 'zustand'
 
 export const DEMO_STATES = [
   'LOCK_SCREEN',
-  'BOARD_INITIAL',
-  'TRIAGE_COMP',
-  'BOARD_COMP_RESOLVED',
-  'CABANA_THREAD',
+  'ISSUE_DETAIL_COMP',
+  'BOARD',
+  'ISSUE_DETAIL_CABANA',
   'STAFF_VIEW',
   'STAFF_COMPLETE',
   'BOARD_RESOLVED',

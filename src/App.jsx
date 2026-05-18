@@ -3,8 +3,6 @@ import { PhoneFrame } from './components/PhoneFrame'
 import { useDemoFlow } from './store/demoFlow'
 import { LockScreen } from './screens/LockScreen'
 import { DeliveryBoard } from './screens/DeliveryBoard'
-import { TriageComp } from './screens/TriageComp'
-import { CabanaThread } from './screens/CabanaThread'
 import { StaffView } from './screens/StaffView'
 import { BoardResolved } from './screens/BoardResolved'
 
@@ -12,14 +10,13 @@ function DemoRouter() {
   const { currentState } = useDemoFlow()
 
   const screens = {
-    LOCK_SCREEN:         <LockScreen />,
-    BOARD_INITIAL:       <DeliveryBoard variant="initial" />,
-    TRIAGE_COMP:         <TriageComp />,
-    BOARD_COMP_RESOLVED: <DeliveryBoard variant="comp_resolved" />,
-    CABANA_THREAD:       <CabanaThread />,
-    STAFF_VIEW:          <StaffView variant="idle" />,
-    STAFF_COMPLETE:      <StaffView variant="complete" />,
-    BOARD_RESOLVED:      <BoardResolved />,
+    LOCK_SCREEN:          <LockScreen />,
+    ISSUE_DETAIL_COMP:    <LockScreen />,  // placeholder — replaced in Task 12
+    BOARD:                <DeliveryBoard />,
+    ISSUE_DETAIL_CABANA:  <LockScreen />,  // placeholder — replaced in Task 12
+    STAFF_VIEW:           <StaffView />,
+    STAFF_COMPLETE:       <StaffView />,
+    BOARD_RESOLVED:       <BoardResolved />,
   }
 
   return screens[currentState] ?? <LockScreen />

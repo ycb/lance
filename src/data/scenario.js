@@ -11,7 +11,6 @@ export const DEPT = {
 
 export const DEPARTMENTS = Object.values(DEPT)
 
-// step status
 export const S = {
   PENDING:   'pending',
   ACTIVE:    'active',
@@ -20,7 +19,6 @@ export const S = {
   ESCALATED: 'escalated',
 }
 
-// commitment severity
 export const SEV = {
   NEEDS_DECISION: 'needs_decision',
   IN_PROGRESS:    'in_progress',
@@ -30,43 +28,94 @@ export const SEV = {
 export const commitments = {
   stayExtension: {
     id: 'stay_extension',
+    issueType: 'Extension',
     severity: SEV.RESOLVED,
-    guest: 'Alex Chen · Rm 412',
+    guest: 'Alex Chen',
+    room: 'Rm 412',
     summary: 'Stay extended — May 19 to May 21',
     stepLabel: 'Updated in Opera · 2 min ago',
-    elapsed: '2 min ago',
+    elapsed: '2m ago',
+    currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
     chainSteps: [
       { id: 'se1', initials: 'FD', deptId: 'FD', status: S.COMPLETE },
+    ],
+    chainHistory: [
+      {
+        id: 'seh1',
+        initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services',
+        action: 'Check availability and extend reservation in Opera',
+        status: S.COMPLETE,
+        outcome: 'Availability confirmed at $220/night. Reservation extended May 19–21.',
+        time: '2 min ago',
+      },
+    ],
+    thread: [
+      { id: 'se_t0', type: 'guest', text: "Can I extend my stay two more nights through May 21?", time: '9:38 AM' },
+      { id: 'se_t1', type: 'system', text: 'Availability confirmed at $220/night. Reservation updated in Opera. No action needed.', time: '9:39 AM' },
     ],
   },
 
   cabana: {
     id: 'cabana',
+    issueType: 'Setup',
     severity: SEV.IN_PROGRESS,
-    guest: 'Alex Chen · Rm 412',
+    guest: 'Alex Chen',
+    room: 'Rm 412',
     summary: 'Cabana 3 — pool party setup by 4pm',
     stepLabel: 'Maria H. delivering towels',
-    elapsed: '18 min ago',
+    elapsed: '18m ago',
+    currentAssignee: { initials: 'MH', deptId: 'HK', name: 'Maria H.', role: 'Housekeeping' },
     chainSteps: [
       { id: 'cc1', initials: 'JR', deptId: 'RW', status: S.COMPLETE },
       { id: 'cc2', initials: 'MH', deptId: 'HK', status: S.ACTIVE   },
       { id: 'cc3', initials: 'FB', deptId: 'FB', status: S.COMPLETE },
     ],
-    thread: {
-      jordanPhoto: true,
-      jordanNote: 'Cabana 3 set up. Chairs, umbrella, 8 waters on table.',
-      mariaStatus: 'On it — 10 min out',
-      fbNote: 'F&B notified. Poolside service available on guest request.',
-    },
+    chainHistory: [
+      {
+        id: 'ch1',
+        initials: 'JR', deptId: 'RW', name: 'Jordan R.', role: 'Recreation',
+        action: 'Cabana 3 setup: chairs, umbrella, 8 waters',
+        status: S.COMPLETE,
+        outcome: 'Cabana 3 set up. Chairs, umbrella, 8 waters on table.',
+        time: '12 min ago',
+      },
+      {
+        id: 'ch2',
+        initials: 'MH', deptId: 'HK', name: 'Maria H.', role: 'Housekeeping',
+        action: 'Deliver extra towels to pool level, Cabana 3',
+        status: S.ACTIVE,
+        outcome: null,
+        time: 'Now',
+      },
+      {
+        id: 'ch3',
+        initials: 'FB', deptId: 'FB', name: 'F&B', role: 'Food & Beverage',
+        action: 'Heads-up: poolside service may be requested',
+        status: S.COMPLETE,
+        outcome: 'Notified. Poolside service available on request.',
+        time: '12 min ago',
+      },
+    ],
+    thread: [
+      { id: 'ct0', type: 'guest', text: "We'd love a cabana for a pool party — 8 guests, ready by 4pm today.", time: '9:23 AM' },
+      { id: 'ct1', type: 'system', text: 'Matched SOP: Cabana Package. Jordan R. (Recreation) assigned. F&B notified for poolside availability.', time: '9:23 AM' },
+      { id: 'ct2', type: 'staff', initials: 'JR', deptId: 'RW', name: 'Jordan R.', text: 'On it! Setting up Cabana 3 now.', time: '9:25 AM' },
+      { id: 'ct3', type: 'staff', initials: 'JR', deptId: 'RW', name: 'Jordan R.', text: 'Cabana 3 ready — chairs, umbrella, 8 waters.', time: '9:28 AM', hasPhoto: true, photoEmoji: '🏖️', photoCaption: 'Cabana 3 — ready' },
+      { id: 'ct4', type: 'system', text: 'Step 1 complete. Maria H. (Housekeeping) assigned: extra towels to pool level.', time: '9:28 AM' },
+      { id: 'ct5', type: 'staff', initials: 'MH', deptId: 'HK', name: 'Maria H.', text: 'Got it — on my way, 10 min out.', time: '9:31 AM' },
+    ],
   },
 
   acComp: {
     id: 'ac_comp',
+    issueType: 'Comp Request',
     severity: SEV.NEEDS_DECISION,
-    guest: 'Rm 408 (moved from 410)',
+    guest: 'Anonymous Guest',
+    room: 'Rm 408',
     summary: 'Guest requesting comp for room move disruption',
     stepLabel: 'Exceeds frontline authority · Decide now',
-    elapsed: '31 min ago',
+    elapsed: '31m ago',
+    currentAssignee: { initials: '!', deptId: 'FD', name: 'Escalated', role: 'Supervisor Needed' },
     chainSteps: [
       { id: 'ac1', initials: 'MT', deptId: 'ME', status: S.COMPLETE  },
       { id: 'ac2', initials: 'MH', deptId: 'HK', status: S.COMPLETE  },
@@ -76,10 +125,7 @@ export const commitments = {
     chainHistory: [
       {
         id: 'h1',
-        initials: 'MT',
-        deptId: 'ME',
-        name: 'Marcus T.',
-        role: 'Maintenance',
+        initials: 'MT', deptId: 'ME', name: 'Marcus T.', role: 'Maintenance',
         action: 'Diagnose and repair AC unit, Room 410',
         status: S.COMPLETE,
         outcome: 'Compressor failed. Needs parts. Est. 2+ day repair.',
@@ -87,10 +133,7 @@ export const commitments = {
       },
       {
         id: 'h2',
-        initials: 'MH',
-        deptId: 'HK',
-        name: 'Maria H.',
-        role: 'Housekeeping',
+        initials: 'MH', deptId: 'HK', name: 'Maria H.', role: 'Housekeeping',
         action: 'Prepare Room 408 for guest move',
         status: S.COMPLETE,
         outcome: 'Room 408 cleaned and confirmed ready.',
@@ -98,22 +141,33 @@ export const commitments = {
       },
       {
         id: 'h3',
-        initials: 'FD',
-        deptId: 'FD',
-        name: 'Front Desk',
-        role: 'Guest Services',
+        initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services',
         action: 'Notify guest and assist with relocation to Room 408',
         status: S.COMPLETE,
         outcome: 'Guest moved to 408. Expressed frustration. Requesting compensation.',
         time: '19 min ago',
       },
     ],
-    aiSummary:
-      'Guest experienced unplanned room move due to equipment failure. One night of disruption. Requesting compensation. One-night comp matches the disruption duration and aligns with standard recovery policy.',
+    escalationReason: 'Comp request exceeds $100 frontline authority threshold.',
+    aiSummary: 'Guest experienced unplanned room move due to equipment failure. One night of disruption. Requesting compensation. One-night comp matches disruption duration and aligns with standard recovery policy.',
     compOptions: [
-      { id: 'comp_night', label: 'Comp one night',    amount: '$195', recommended: true  },
-      { id: 'comp_fb',    label: 'F&B credit',         amount: '$75',  recommended: false },
-      { id: 'comp_none',  label: 'Decline with apology', amount: null, recommended: false },
+      { id: 'comp_night', label: 'Comp one night',      amount: '$195', recommended: true,  editable: false },
+      { id: 'comp_fb',    label: 'F&B credit',           amount: '$75',  recommended: false, editable: true  },
+      { id: 'comp_none',  label: 'Decline with apology', amount: null,   recommended: false, editable: false },
+      { id: 'comp_custom', label: 'Custom response',     amount: null,   recommended: false, editable: false, isCustom: true },
+    ],
+    draftMessage: `Dear Guest,\n\nWe sincerely apologize for the inconvenience caused by the AC issue in Room 410 and the need to relocate you. As a valued guest, we've applied a one-night credit of $195 to your account — no action needed on your part.\n\nWe're committed to making the rest of your stay exceptional.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`,
+    thread: [
+      { id: 'ac_t0', type: 'guest', text: "My AC isn't working — it's really hot in here.", time: '9:09 AM' },
+      { id: 'ac_t1', type: 'system', text: 'Matched SOP: Equipment Failure → repair + contingency move. Marcus T. (Maintenance) assigned, priority high.', time: '9:09 AM' },
+      { id: 'ac_t2', type: 'staff', initials: 'MT', deptId: 'ME', name: 'Marcus T.', text: 'On it — heading to 410 now.', time: '9:11 AM' },
+      { id: 'ac_t3', type: 'staff', initials: 'MT', deptId: 'ME', name: 'Marcus T.', text: 'Compressor failed. Needs parts, 2+ day repair minimum.', time: '9:13 AM', hasPhoto: true, photoEmoji: '🔧', photoCaption: 'AC unit — compressor damage' },
+      { id: 'ac_t4', type: 'system', text: 'Repair >1 day confirmed. Room move branch activated. Maria H. (Housekeeping) assigned: prep Room 408.', time: '9:13 AM' },
+      { id: 'ac_t5', type: 'staff', initials: 'MH', deptId: 'HK', name: 'Maria H.', text: 'Got it, heading to 408 now.', time: '9:16 AM' },
+      { id: 'ac_t6', type: 'staff', initials: 'MH', deptId: 'HK', name: 'Maria H.', text: '408 is clean and ready.', time: '9:24 AM', hasPhoto: true, photoEmoji: '🛏️', photoCaption: 'Room 408 — ready' },
+      { id: 'ac_t7', type: 'system', text: 'Room 408 confirmed ready. Front Desk assigned: relocate guest from 410.', time: '9:24 AM' },
+      { id: 'ac_t8', type: 'staff', initials: 'FD', deptId: 'FD', name: 'Front Desk', text: 'Guest relocated to 408. Very upset about the disruption — requesting compensation.', time: '9:30 AM' },
+      { id: 'ac_t9', type: 'system', text: 'Comp request exceeds $100 frontline authority threshold. Escalated to supervisor.', time: '9:31 AM', isEscalation: true },
     ],
   },
 }

@@ -43,6 +43,7 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
   return (
     <motion.div
       className="absolute inset-0 flex flex-col bg-background"
+      style={{ zIndex: 20 }}
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}
@@ -136,6 +137,7 @@ function SendView({ commitment, selected, fbAmount, onBack, onSend }) {
   return (
     <motion.div
       className="absolute inset-0 flex flex-col bg-background"
+      style={{ zIndex: 20 }}
       initial={{ x: '100%' }}
       animate={{ x: 0 }}
       exit={{ x: '100%' }}

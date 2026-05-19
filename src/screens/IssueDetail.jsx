@@ -62,7 +62,7 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
 
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pb-1">Choose Response</p>
 
-        {commitment.compOptions.map(option => {
+        {(commitment.compOptions ?? []).map(option => {
           const isSelected = selected === option.id
           return (
             <button
@@ -188,6 +188,7 @@ function SendView({ commitment, selected, fbAmount, onBack, onSend }) {
 // ─── AI Summary strip ─────────────────────────────────────────────────────────
 
 function AISummary({ text }) {
+  if (!text) return null
   return (
     <div style={{ background: 'white', borderBottom: '1px solid #e5e7eb', padding: '10px 12px' }}>
       <div style={{ background: '#eff6ff', borderLeft: '3px solid #3363AC', padding: '7px 9px', borderRadius: '0 6px 6px 0' }}>
@@ -224,11 +225,10 @@ function TabBar({ active, onChange, counts }) {
                 fontSize: 11,
                 fontWeight: isActive ? 700 : 400,
                 color: isActive ? '#002E5A' : '#6b7280',
+                border: 'none',
                 borderBottom: isActive ? '2px solid #002E5A' : '2px solid transparent',
                 marginBottom: -2,
                 background: 'none',
-                border: 'none',
-                borderBottom: isActive ? '2px solid #002E5A' : '2px solid transparent',
                 cursor: 'pointer',
               }}
             >

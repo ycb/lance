@@ -83,10 +83,7 @@ function GuestCard({ event, guestName, guestRoom }) {
   return (
     <div style={{ flex: 1, background: 'white', border: '1px solid #e5e7eb', borderRadius: 6, padding: '6px 8px', display: 'flex', alignItems: 'center', gap: 8 }}>
       <div style={{ flex: 1 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 10, fontWeight: 600 }}>{guestName} · {guestRoom}</span>
-          <span style={{ fontSize: 9, color: '#9ca3af' }}>{event.time}</span>
-        </div>
+        <span style={{ fontSize: 10, fontWeight: 600 }}>{guestName} · {guestRoom}</span>
         <div style={{ fontSize: 10, color: '#374151', marginTop: 1 }}>{event.text}</div>
         <Timestamp time={event.time} />
       </div>
@@ -115,7 +112,7 @@ function AIAmberCard({ event }) {
         {event.detail && <div style={{ fontSize: 10, color: '#374151', marginTop: 1 }}>{event.detail}</div>}
         <Timestamp time={event.time} />
       </div>
-      <CheckDot done="check" />
+      <CheckDot done="pending" />
     </div>
   )
 }

@@ -5,9 +5,11 @@ const DEPT_COLORS = {
   HK:  '#A855F7',
   ME:  '#F97316',
   SEC: '#64748B',
+  SUP: '#002E5A',
 }
 
 const SIZES = {
+  xs: 'w-[22px] h-[22px] text-[8px] font-bold',
   sm: 'w-7 h-7 text-xs',
   md: 'w-9 h-9 text-sm',
   lg: 'w-11 h-11 text-base',

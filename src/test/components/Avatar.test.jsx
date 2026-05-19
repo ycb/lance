@@ -29,4 +29,16 @@ describe('Avatar', () => {
     expect(container.querySelector('[data-testid="badge-complete"]')).not.toBeInTheDocument()
     expect(container.querySelector('[data-testid="badge-escalated"]')).not.toBeInTheDocument()
   })
+
+  it('renders xs size with 22px dimensions', () => {
+    const { container } = render(<Avatar initials="SM" deptId="SUP" size="xs" />)
+    const el = container.firstChild
+    expect(el.className).toMatch(/w-\[22px\]/)
+  })
+
+  it('uses cobalt border for SUP dept', () => {
+    const { container } = render(<Avatar initials="SM" deptId="SUP" size="xs" />)
+    const el = container.firstChild
+    expect(el.style.outline).toContain('#002E5A')
+  })
 })

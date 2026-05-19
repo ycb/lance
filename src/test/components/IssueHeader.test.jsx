@@ -6,17 +6,17 @@ import { commitments } from '../../data/scenario'
 describe('IssueHeader', () => {
   it('renders room number', () => {
     render(<IssueHeader commitment={commitments.acComp} />)
-    expect(screen.getByText(/Rm 408/)).toBeInTheDocument()
+    expect(screen.getByText(/Rm 412/)).toBeInTheDocument()
   })
 
   it('renders elapsed time', () => {
     render(<IssueHeader commitment={commitments.acComp} />)
-    expect(screen.getByText(/31m ago/)).toBeInTheDocument()
+    expect(screen.getByText(/47 min/)).toBeInTheDocument()
   })
 
   it('renders assignee name', () => {
     render(<IssueHeader commitment={commitments.acComp} />)
-    expect(screen.getByText('Escalated')).toBeInTheDocument()
+    expect(screen.getByText('Sarah M.')).toBeInTheDocument()
   })
 
   it('renders issue type', () => {

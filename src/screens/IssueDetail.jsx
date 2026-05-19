@@ -185,6 +185,30 @@ function SendView({ commitment, selected, fbAmount, onBack, onSend }) {
   )
 }
 
+// ─── Origin ticket card ───────────────────────────────────────────────────────
+
+function OriginTicket({ event, guest, room }) {
+  if (!event || event.type !== 'guest') return null
+  return (
+    <div
+      style={{ background: 'white', borderBottom: '1px solid #e5e7eb', padding: '8px 12px', cursor: 'pointer' }}
+      onClick={() => {}}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#f3f4f6', border: '2px solid #9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>
+          👤
+        </div>
+        <div style={{ flex: 1 }}>
+          <span style={{ fontSize: 11, fontWeight: 600, color: '#111827' }}>{guest} · {room}</span>
+          <div style={{ fontSize: 10, color: '#374151', marginTop: 1 }}>{event.text}</div>
+          <div style={{ fontSize: 9, color: '#9ca3af', marginTop: 1 }}>{event.time} · May 18, 2026</div>
+        </div>
+        <span style={{ fontSize: 11, color: '#9ca3af', flexShrink: 0 }}>›</span>
+      </div>
+    </div>
+  )
+}
+
 // ─── AI Summary strip ─────────────────────────────────────────────────────────
 
 function AISummary({ text }) {
@@ -257,7 +281,7 @@ export function IssueDetail() {
 
   const photos = (commitment.thread || []).filter(m => m.hasPhoto)
   const counts = {
-    tickets:  (commitment.timeline || []).length,
+    tickets:  Math.max(0, (commitment.timeline || []).length - 1),
     messages: (commitment.thread   || []).length,
     photos:   photos.length,
   }
@@ -279,12 +303,18 @@ export function IssueDetail() {
         onBack={() => {}}
       />
 
+      <OriginTicket
+        event={(commitment.timeline || [])[0]}
+        guest={commitment.guest}
+        room={commitment.room}
+      />
+
       <AISummary text={commitment.summaryBrief ?? commitment.aiSummary} />
 
       <TabBar active={tab} onChange={setTab} counts={counts} />
 
       <div className="flex-1 overflow-hidden">
-        {tab === 'tickets'  && <TicketChain  timeline={commitment.timeline || []} guest={commitment.guest} room={commitment.room} />}
+        {tab === 'tickets'  && <TicketChain  timeline={(commitment.timeline || []).slice(1)} guest={commitment.guest} room={commitment.room} />}
         {tab === 'messages' && <MessagesPanel thread={commitment.thread || []} />}
         {tab === 'photos'   && <PhotosPanel  photos={photos} />}
       </div>

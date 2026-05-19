@@ -28,7 +28,7 @@ export function BoardResolved() {
 
   return (
     <div className="h-full flex flex-col bg-muted/30">
-      <AppHeader mode="board" hasAlert={false} />
+      <AppHeader />
 
       <motion.div
         className="flex-1 overflow-y-auto"

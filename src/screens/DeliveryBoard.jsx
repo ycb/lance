@@ -38,7 +38,7 @@ export function DeliveryBoard() {
 
   return (
     <div className="h-full flex flex-col bg-muted/30">
-      <AppHeader mode="board" hasAlert={currentIndex < 2} />
+      <AppHeader />
 
       {activeTab === 'issues' && (
         <>

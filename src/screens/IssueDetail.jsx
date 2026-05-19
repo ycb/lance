@@ -211,12 +211,7 @@ export function IssueDetail() {
 
   return (
     <div className="h-full flex flex-col bg-muted/30 relative overflow-hidden">
-      <AppHeader
-        mode="detail"
-        title={commitment.issueType}
-        severity={commitment.severity}
-        onBack={() => {}}
-      />
+      <AppHeader />
 
       <IssueHeader commitment={commitment} />
 

@@ -31,10 +31,10 @@ function getDraft(optionId, fbAmount) {
 }
 
 function getToastMessage(optionId, fbAmount) {
-  if (optionId === 'comp_night') return 'Room 408 notified · $195 comp issued'
-  if (optionId === 'comp_fb') return `Room 408 notified · ${fbAmount} F&B credit issued`
-  if (optionId === 'comp_none') return 'Room 408 notified · Apology sent'
-  return 'Room 408 notified · Response sent'
+  if (optionId === 'comp_night') return 'Rm 412 notified · $195 comp issued'
+  if (optionId === 'comp_fb') return `Rm 412 notified · ${fbAmount} F&B credit issued`
+  if (optionId === 'comp_none') return 'Rm 412 notified · Apology sent'
+  return 'Rm 412 notified · Response sent'
 }
 
 // ─── Resolution picker overlay ────────────────────────────────────────────────
@@ -289,15 +289,17 @@ export function IssueDetail() {
         {tab === 'photos'   && <PhotosPanel  photos={photos} />}
       </div>
 
-      <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-200">
-        <button
-          className="w-full py-2.5 rounded-lg text-sm font-bold text-white"
-          style={{ background: '#002E5A' }}
-          onClick={() => setStep('resolution')}
-        >
-          Proceed to Resolution →
-        </button>
-      </div>
+      {commitment.compOptions?.length > 0 && (
+        <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-200">
+          <button
+            className="w-full py-2.5 rounded-lg text-sm font-bold text-white"
+            style={{ background: '#002E5A' }}
+            onClick={() => setStep('resolution')}
+          >
+            Proceed to Resolution →
+          </button>
+        </div>
+      )}
 
       <AnimatePresence>
         {step === 'resolution' && (

@@ -157,13 +157,13 @@ export const commitments = {
       { id: 'ac1', initials: 'MT', deptId: 'ME', status: S.COMPLETE  },
       { id: 'ac2', initials: 'MH', deptId: 'HK', status: S.COMPLETE  },
       { id: 'ac3', initials: 'FD', deptId: 'FD', status: S.COMPLETE  },
-      { id: 'ac4', initials: '!',  deptId: 'FD', status: S.ESCALATED },
+      { id: 'ac4', initials: 'SM', deptId: 'SUP', status: S.ACTIVE },
     ],
     chainHistory: [
       {
         id: 'h1',
         initials: 'MT', deptId: 'ME', name: 'Marcus T.', role: 'Maintenance',
-        action: 'Diagnose and repair AC unit, Room 410',
+        action: 'Diagnose and repair AC unit, Room 412',
         status: S.COMPLETE,
         outcome: 'Compressor failed. Needs parts. Est. 2+ day repair.',
         time: '31 min ago',
@@ -193,7 +193,7 @@ export const commitments = {
       { id: 'comp_none',  label: 'Decline with apology', amount: null,   recommended: false, editable: false },
       { id: 'comp_custom', label: 'Custom response',     amount: null,   recommended: false, editable: false, isCustom: true },
     ],
-    draftMessage: `Dear Guest,\n\nWe sincerely apologize for the inconvenience caused by the AC issue in Room 410 and the need to relocate you. As a valued guest, we've applied a one-night credit of $195 to your account — no action needed on your part.\n\nWe're committed to making the rest of your stay exceptional.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`,
+    draftMessage: `Dear Guest,\n\nWe sincerely apologize for the inconvenience caused by the AC issue in Room 412 and the need to relocate you. As a valued guest, we've applied a one-night credit of $195 to your account — no action needed on your part.\n\nWe're committed to making the rest of your stay exceptional.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`,
     thread: [
       { id: 'ac_t0', type: 'staff',  initials: 'MT', deptId: 'ME', name: 'Marcus T.', text: 'On my way.',                                                                       time: '9:06 AM' },
       { id: 'ac_t1', type: 'staff',  initials: 'MT', deptId: 'ME', name: 'Marcus T.', text: 'Ordered a new compressor. Arrives next week.',                                     time: '9:21 AM' },

@@ -42,6 +42,19 @@ export function DeliveryBoard() {
 
       {activeTab === 'issues' && (
         <>
+          <div className="flex items-center justify-around px-4 py-2 bg-background border-b border-border">
+            {[
+              { label: 'Today', value: 5 },
+              { label: 'Critical', value: 1 },
+              { label: 'In Progress', value: 1 },
+              { label: 'Resolved', value: 3 },
+            ].map(({ label, value }) => (
+              <div key={label} className="flex items-center gap-1">
+                <span className="text-sm font-semibold text-foreground">{value}</span>
+                <span className="text-xs text-muted-foreground">{label}</span>
+              </div>
+            ))}
+          </div>
           <IssueFilters value={filter} onChange={setFilter} />
           <motion.div
             className="flex-1 overflow-y-auto px-4 pt-4 pb-2"

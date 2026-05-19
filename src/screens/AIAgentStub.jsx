@@ -4,6 +4,10 @@ export function AIAgentStub() {
       <div className="px-4 py-3 border-b border-border">
         <h2 className="text-base font-bold text-foreground">AI Agent</h2>
         <p className="text-xs text-muted-foreground">Ask anything about operations, SOPs, or guest history</p>
+        <div className="flex items-center gap-1.5 mt-2">
+          <span className="inline-flex items-center justify-center bg-muted text-muted-foreground font-bold text-[9px] px-1.5 py-0.5 rounded">AI</span>
+          <p className="text-xs text-muted-foreground">Guest comms managed by AI Agent · 3 guests messaged this shift</p>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-4">

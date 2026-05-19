@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router-dom'
+import { Toaster } from 'sonner'
 import { PhoneFrame } from './components/PhoneFrame'
 import { useDemoFlow } from '@/store/demoFlow'
 import { LockScreen } from './screens/LockScreen'
@@ -29,6 +30,7 @@ export default function App() {
       <PhoneFrame>
         <DemoRouter />
       </PhoneFrame>
+      <Toaster position="bottom-center" />
     </BrowserRouter>
   )
 }

@@ -73,7 +73,7 @@ export function TeamTicketDetail({ ticket, teamTicket, originTicket, headerTitle
     >
       <div className="h-12 bg-white border-b border-border flex items-center px-4 shrink-0" style={{ position: 'relative' }}>
         <button className="text-sm font-medium shrink-0" style={{ color: '#3363AC' }} onClick={handleBack}>
-          ← Ticket
+          ← Issue Overview
         </button>
         <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
           {headerTitle}

@@ -61,7 +61,7 @@ export function LinkedTicketDetail({ ticket, onBack }) {
     >
       <div className="h-12 bg-white border-b border-border flex items-center px-4 shrink-0" style={{ position: 'relative' }}>
         <button className="text-sm font-medium shrink-0" style={{ color: '#3363AC' }} onClick={onBack}>
-          ← Guest Ticket
+          ← Full Ticket Details
         </button>
         <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
           Linked Ticket

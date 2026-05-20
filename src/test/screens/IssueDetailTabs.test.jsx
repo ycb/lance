@@ -33,7 +33,7 @@ describe('IssueDetail tabs', () => {
     expect(screen.getByText('Team Ticket')).toBeInTheDocument()
     expect(screen.getByText('Authorize compensation')).toBeInTheDocument()
 
-    fireEvent.click(screen.getByText('← Ticket'))
+    fireEvent.click(screen.getByText('← Issue Overview'))
 
     expect(screen.getByText('Customer Ticket')).toBeInTheDocument()
     expect(screen.getByText('Guest requests compensation after room move')).toBeInTheDocument()

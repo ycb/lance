@@ -39,7 +39,7 @@ describe('TeamTicketDetail', () => {
       />,
     )
 
-    fireEvent.click(screen.getByText('← Ticket'))
+    fireEvent.click(screen.getByText('← Issue Overview'))
     fireEvent.click(screen.getByLabelText('Close team ticket'))
 
     expect(onBackToCustomerTicket).toHaveBeenCalledTimes(1)

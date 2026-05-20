@@ -351,6 +351,7 @@ export function IssueDetail() {
   const [step, setStep]             = useState('detail')
   const [showOriginDetail, setShowOriginDetail] = useState(false)
   const [selectedTeamTicket, setSelectedTeamTicket] = useState(null)
+  const [teamTicketFromOrigin, setTeamTicketFromOrigin] = useState(false)
   const [selectedLinkedTicket, setSelectedLinkedTicket] = useState(null)
   const [selectedComp, setSelectedComp] = useState(null)
   const [fbAmount, setFbAmount]     = useState('$75')
@@ -373,8 +374,9 @@ export function IssueDetail() {
 
   const detailOverlayOpen = showOriginDetail || Boolean(selectedTeamTicket) || Boolean(selectedLinkedTicket)
 
-  const handleTeamTicketPress = (ticket) => {
+  const handleTeamTicketPress = (ticket, fromOrigin = false) => {
     setSelectedTeamTicket(ticket)
+    setTeamTicketFromOrigin(fromOrigin)
   }
 
   const handleLinkedTicketPress = (linkedTicket) => {
@@ -458,7 +460,7 @@ export function IssueDetail() {
             commitment={commitment}
             originEvent={(commitment.timeline || [])[0]}
             onBack={() => setShowOriginDetail(false)}
-            onTeamTicketPress={handleTeamTicketPress}
+            onTeamTicketPress={(t) => handleTeamTicketPress(t, true)}
             onLinkedTicketPress={handleLinkedTicketPress}
           />
         )}
@@ -470,7 +472,7 @@ export function IssueDetail() {
           originTicket={commitment.originTicket}
           onBack={() => {
             setSelectedTeamTicket(null)
-            setShowOriginDetail(true)
+            if (teamTicketFromOrigin) setShowOriginDetail(true)
           }}
           onClose={() => {
             setSelectedTeamTicket(null)

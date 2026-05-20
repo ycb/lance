@@ -175,7 +175,8 @@ function findTeamTicketForEvent(teamTickets, event) {
 }
 
 function StaffCard({ event, teamTicket, onTeamTicketPress }) {
-  const isActive = event.status === 'active'
+  const isActive   = event.status === 'active'
+  const isComplete = event.status === 'complete'
   const interactive = Boolean(teamTicket && onTeamTicketPress)
   const Component = interactive ? 'button' : 'div'
 
@@ -202,6 +203,11 @@ function StaffCard({ event, teamTicket, onTeamTicketPress }) {
           {isActive && (
             <span style={{ fontSize: 8, fontWeight: 700, background: '#dbeafe', color: '#002E5A', padding: '1px 5px', borderRadius: 4 }}>
               ACTIVE
+            </span>
+          )}
+          {isComplete && (
+            <span style={{ fontSize: 8, fontWeight: 700, background: '#dcfce7', color: '#15803d', padding: '1px 5px', borderRadius: 4 }}>
+              COMPLETE
             </span>
           )}
         </div>

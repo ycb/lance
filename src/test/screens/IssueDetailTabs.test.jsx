@@ -25,7 +25,7 @@ describe('IssueDetail tabs', () => {
     expect(screen.getByText('AC compressor label')).toBeInTheDocument()
   })
 
-  it('opens team ticket detail directly and backs into customer ticket detail', () => {
+  it('opens team ticket from tab and backs to issue overview (not ticket details)', () => {
     render(<IssueDetail />)
 
     fireEvent.click(screen.getByText('Authorize comp · Room 408'))
@@ -35,6 +35,25 @@ describe('IssueDetail tabs', () => {
 
     fireEvent.click(screen.getByText('← Issue Overview'))
 
+    // Should return to issue overview, not ticket details
+    expect(screen.getByText('Team Tickets (4)')).toBeInTheDocument()
+    expect(screen.queryByText('Customer Ticket')).not.toBeInTheDocument()
+  })
+
+  it('opens team ticket from ticket details and backs to ticket details', () => {
+    render(<IssueDetail />)
+
+    // Open ticket details first
+    fireEvent.click(screen.getByText('Guest requests compensation after room move'))
+    expect(screen.getByText('Ticket Details')).toBeInTheDocument()
+
+    // Open a team ticket from within ticket details
+    fireEvent.click(screen.getByText('Authorize compensation'))
+    expect(screen.getByText('Team Ticket')).toBeInTheDocument()
+
+    // Back should return to ticket details (use last back button — TeamTicketDetail overlays OriginTicketDetail)
+    const backButtons = screen.getAllByText('← Issue Overview')
+    fireEvent.click(backButtons[backButtons.length - 1])
     expect(screen.getByText('Customer Ticket')).toBeInTheDocument()
     expect(screen.getByText('Guest requests compensation after room move')).toBeInTheDocument()
   })

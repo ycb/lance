@@ -4,8 +4,8 @@ function DeptSquare({ deptId, status }) {
   const color = DEPT[deptId]?.color ?? '#9ca3af'
   const abbr  = deptId.slice(0, 3)
 
-  const isComplete = status === 'complete'
-  const isPending  = status === 'pending' || status === 'skipped'
+  const isActive  = status === 'active' || status === 'escalated'
+  const isPending = status === 'pending' || status === 'skipped'
 
   return (
     <div
@@ -17,17 +17,16 @@ function DeptSquare({ deptId, status }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: isComplete ? '#e5e7eb' : color,
+        background: color,
         opacity: isPending ? 0.3 : 1,
+        outline: isActive ? '2px solid white' : 'none',
+        outlineOffset: 1,
+        boxShadow: isActive ? `0 0 0 3px ${color}` : 'none',
       }}
     >
-      {isComplete ? (
-        <span style={{ fontSize: 9, color: '#6b7280', fontWeight: 700 }}>✓</span>
-      ) : (
-        <span style={{ fontSize: abbr.length > 2 ? 6 : 7, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
-          {abbr}
-        </span>
-      )}
+      <span style={{ fontSize: abbr.length > 2 ? 6 : 7, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
+        {abbr}
+      </span>
     </div>
   )
 }

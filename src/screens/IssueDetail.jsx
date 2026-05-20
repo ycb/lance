@@ -151,7 +151,7 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
 
 // ─── Draft & send overlay ─────────────────────────────────────────────────────
 
-function DraftItem({ id, icon, label, draft, viewed, onOpen }) {
+function DraftItem({ id, icon, label, draft, viewed, onOpen, editMode }) {
   const [text, setText] = useState(draft)
   const [editing, setEditing] = useState(false)
 
@@ -166,6 +166,16 @@ function DraftItem({ id, icon, label, draft, viewed, onOpen }) {
         style={{ borderRadius: 0 }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+          {editMode && (
+            <span
+              style={{
+                width: 18, height: 18, borderRadius: '50%', background: '#ef4444',
+                color: 'white', fontSize: 12, fontWeight: 700, lineHeight: '18px',
+                textAlign: 'center', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}
+              onClick={e => e.stopPropagation()}
+            >−</span>
+          )}
           <span style={{ fontSize: 14 }}>{icon}</span>
           <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{label}</span>
           {viewed && (
@@ -206,7 +216,8 @@ function DraftItem({ id, icon, label, draft, viewed, onOpen }) {
 function SendView({ selected, fbAmount, onBack, onSend }) {
   const smsDraft   = getDraftSMS(selected, fbAmount)
   const emailDraft = getDraftEmail(selected, fbAmount)
-  const [viewed, setViewed] = useState(new Set(['sms']))
+  const [viewed, setViewed]   = useState(new Set(['sms']))
+  const [editMode, setEditMode] = useState(false)
 
   const markViewed = (id) => setViewed(prev => new Set([...prev, id]))
   const allReviewed = viewed.has('sms') && viewed.has('email')
@@ -223,6 +234,12 @@ function SendView({ selected, fbAmount, onBack, onSend }) {
       <div className="h-12 bg-white border-b border-border flex items-center px-4 shrink-0" style={{ position: 'relative' }}>
         <button className="text-primary text-sm font-medium shrink-0" onClick={onBack}>← Resolution</button>
         <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>Send to Guest</p>
+        <button
+          className="text-primary text-sm font-medium shrink-0 ml-auto"
+          onClick={() => setEditMode(e => !e)}
+        >
+          {editMode ? 'Done' : 'Edit'}
+        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -230,9 +247,18 @@ function SendView({ selected, fbAmount, onBack, onSend }) {
           Approve Final Messaging
         </p>
         <Accordion openMultiple defaultValue={['sms']}>
-          <DraftItem id="sms"   icon="📱" label="Text Message" draft={smsDraft}   viewed={viewed.has('sms')}   onOpen={markViewed} />
-          <DraftItem id="email" icon="📧" label="Email"        draft={emailDraft} viewed={viewed.has('email')} onOpen={markViewed} />
+          <DraftItem id="sms"   icon="📱" label="Text Message" draft={smsDraft}   viewed={viewed.has('sms')}   onOpen={markViewed} editMode={editMode} />
+          <DraftItem id="email" icon="📧" label="Email"        draft={emailDraft} viewed={viewed.has('email')} onOpen={markViewed} editMode={editMode} />
         </Accordion>
+        {editMode && (
+          <button style={{
+            width: '100%', background: 'white', color: '#6b7280',
+            border: '1px dashed #d1d5db', borderRadius: 8, padding: 10,
+            fontSize: 12, fontWeight: 500, marginTop: 4, cursor: 'default',
+          }}>
+            + Add Channel
+          </button>
+        )}
       </div>
 
       <div className="px-4 pb-6 pt-3 border-t border-border bg-white shrink-0">

@@ -321,10 +321,28 @@ export function IssueDetail() {
     ? {
         ...commitments.acComp,
         severity: 'resolved',
+        requestStats: { total: 2, open: 0 },
         currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
         chainSteps: commitments.acComp.chainSteps.map(s =>
           s.status === 'escalated' ? { ...s, status: 'complete' } : s
         ),
+        originTicket: { ...commitments.acComp.originTicket, status: 'closed' },
+        teamTickets: commitments.acComp.teamTickets.map(t =>
+          t.id === 'TT-004'
+            ? { ...t, status: 'complete', outcome: 'One-night comp of $195 authorized and issued to guest.' }
+            : t
+        ),
+        timeline: [
+          ...commitments.acComp.timeline.map(e =>
+            e.id === 'tl_8' ? { ...e, status: 'complete', outcome: 'One-night comp of $195 authorized.' } : e
+          ),
+          {
+            id: 'tl_9', type: 'ai_action', subtype: 'resolution_check',
+            text: 'Resolution Check — Resolved',
+            detail: 'Comp issued and guest notified via SMS and email. Issue closed.',
+            time: '9:52 AM',
+          },
+        ],
       }
     : baseCommitment
 

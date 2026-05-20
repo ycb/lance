@@ -1,6 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { MiniChain } from '@/components/shared/MiniChain'
 import { Avatar } from '@/components/shared/Avatar'
 
 const BORDER = {
@@ -9,8 +8,17 @@ const BORDER = {
   resolved:       'border-l-4 border-l-border',
 }
 
+function stepIndicator(chainSteps, severity) {
+  if (!chainSteps?.length || severity === 'resolved') return null
+  const total = chainSteps.length
+  const activeIdx = chainSteps.findIndex(s => s.status === 'active' || s.status === 'escalated')
+  const step = activeIdx >= 0 ? activeIdx + 1 : total
+  return `Step ${step} of ${total}`
+}
+
 export function IssueCard({ commitment, onClick }) {
   const isResolved = commitment.severity === 'resolved'
+  const indicator  = stepIndicator(commitment.chainSteps, commitment.severity)
 
   return (
     <button
@@ -39,31 +47,39 @@ export function IssueCard({ commitment, onClick }) {
           </p>
 
           {/* summary */}
-          <p className="text-sm font-semibold text-foreground mt-0.5 leading-snug">{commitment.summary}</p>
+          <p className="text-sm font-semibold text-foreground mt-0.5 leading-snug">
+            {commitment.summary}
+          </p>
 
-          {/* assignee + decide badge */}
+          {/* assignee row */}
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center gap-1.5">
               <Avatar
                 initials={commitment.currentAssignee.initials}
                 deptId={commitment.currentAssignee.deptId}
-                status={commitment.severity === 'needs_decision' ? 'escalated' : commitment.severity === 'resolved' ? 'complete' : 'active'}
+                status={
+                  commitment.severity === 'needs_decision' ? 'escalated'
+                  : commitment.severity === 'resolved'     ? 'complete'
+                  : 'active'
+                }
                 size="sm"
               />
               <span className="text-xs text-muted-foreground">{commitment.currentAssignee.name}</span>
             </div>
-            {commitment.severity === 'needs_decision' && (
-              <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Decide</Badge>
-            )}
-            {commitment.severity === 'in_progress' && (
-              <Badge className="text-[10px] px-1.5 py-0 bg-green-100 text-green-700 hover:bg-green-100 border-0">
-                In Progress
-              </Badge>
-            )}
+            <div className="flex items-center gap-2">
+              {indicator && (
+                <span className="text-[10px] text-muted-foreground">{indicator}</span>
+              )}
+              {commitment.severity === 'needs_decision' && (
+                <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Decide</Badge>
+              )}
+              {commitment.severity === 'in_progress' && (
+                <Badge className="text-[10px] px-1.5 py-0 bg-green-100 text-green-700 hover:bg-green-100 border-0">
+                  In Progress
+                </Badge>
+              )}
+            </div>
           </div>
-
-          {/* mini chain */}
-          <MiniChain steps={commitment.chainSteps} />
         </CardContent>
       </Card>
     </button>

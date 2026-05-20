@@ -38,4 +38,15 @@ describe('IssueCard', () => {
     const btn = screen.getByRole('button')
     expect(btn).toBeDisabled()
   })
+
+  it('shows step indicator for in-progress commitment', () => {
+    render(<IssueCard commitment={commitments.cabana} onClick={() => {}} />)
+    // cabana chainSteps: [COMPLETE, ACTIVE, COMPLETE] → active is index 1 → "Step 2 of 3"
+    expect(screen.getByText('Step 2 of 3')).toBeInTheDocument()
+  })
+
+  it('does not show step indicator for resolved commitment', () => {
+    render(<IssueCard commitment={commitments.stayExtension} onClick={() => {}} />)
+    expect(screen.queryByText(/Step \d+ of \d+/)).not.toBeInTheDocument()
+  })
 })

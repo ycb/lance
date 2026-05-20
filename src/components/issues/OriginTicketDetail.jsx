@@ -13,8 +13,9 @@ function StatusBadge({ status }) {
   else if (statusLower === 'active') label = 'Active'
   else label = status ? status.charAt(0).toUpperCase() + status.slice(1) : ''
 
-  const bgColor = (isOpen || isActive) ? '#dbeafe' : '#dcfce7'
-  const textColor = (isOpen || isActive) ? '#1d4ed8' : '#15803d'
+  const isClosed = statusLower === 'closed'
+  const bgColor = (isOpen || isActive) ? '#dbeafe' : isClosed ? '#f3f4f6' : '#dcfce7'
+  const textColor = (isOpen || isActive) ? '#1d4ed8' : isClosed ? '#6b7280' : '#15803d'
 
   return (
     <span

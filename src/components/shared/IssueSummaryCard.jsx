@@ -84,23 +84,29 @@ export function IssueSummaryCard({
           )}
 
           {/* Chain left, assignee right */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <DeptChain steps={chainSteps} />
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ fontSize: 9, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 4 }}>Team</p>
+              <DeptChain steps={chainSteps} />
+            </div>
             {assignee && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
-                <Avatar
-                  initials={assignee.initials}
-                  deptId={assignee.deptId}
-                  status={
-                    severity === 'needs_decision' ? 'escalated'
-                    : severity === 'resolved'     ? 'complete'
-                    : 'active'
-                  }
-                  size="sm"
-                />
-                <span style={{ fontSize: 11, color: '#374151', fontWeight: 500 }}>
-                  {assignee.name}
-                </span>
+              <div>
+                <p style={{ fontSize: 9, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 4, textAlign: 'right' }}>Assigned</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
+                  <Avatar
+                    initials={assignee.initials}
+                    deptId={assignee.deptId}
+                    status={
+                      severity === 'needs_decision' ? 'escalated'
+                      : severity === 'resolved'     ? 'complete'
+                      : 'active'
+                    }
+                    size="sm"
+                  />
+                  <span style={{ fontSize: 11, color: '#374151', fontWeight: 500 }}>
+                    {assignee.name}
+                  </span>
+                </div>
               </div>
             )}
           </div>

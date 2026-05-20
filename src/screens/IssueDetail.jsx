@@ -315,8 +315,18 @@ function TabBar({ active, onChange, counts }) {
 // ─── Main IssueDetail ─────────────────────────────────────────────────────────
 
 export function IssueDetail() {
-  const { currentState, advance, goTo, resolveComp } = useDemoFlow()
-  const commitment = COMMITMENT_MAP[currentState]
+  const { currentState, advance, goTo, resolveComp, compResolved } = useDemoFlow()
+  const baseCommitment = COMMITMENT_MAP[currentState]
+  const commitment = (currentState === 'ISSUE_DETAIL_COMP' && compResolved)
+    ? {
+        ...commitments.acComp,
+        severity: 'resolved',
+        currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
+        chainSteps: commitments.acComp.chainSteps.map(s =>
+          s.status === 'escalated' ? { ...s, status: 'complete' } : s
+        ),
+      }
+    : baseCommitment
 
   const [tab, setTab]               = useState('tickets')
   const [step, setStep]             = useState('detail')
@@ -401,7 +411,7 @@ export function IssueDetail() {
             {tab === 'photos'   && <PhotosPanel  photos={photos} />}
           </div>
 
-          {commitment.compOptions?.length > 0 && (
+          {commitment.compOptions?.length > 0 && !compResolved && (
             <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-200">
               <button
                 className="w-full py-2.5 rounded-lg text-sm font-bold text-white"
@@ -410,6 +420,14 @@ export function IssueDetail() {
               >
                 Proceed to Resolution →
               </button>
+            </div>
+          )}
+          {compResolved && currentState === 'ISSUE_DETAIL_COMP' && (
+            <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-200">
+              <div className="w-full py-2.5 rounded-lg text-sm font-semibold text-center"
+                style={{ background: '#f0fdf4', color: '#15803d', border: '1px solid #bbf7d0' }}>
+                ✓ Comp authorized · $195 · Guest notified
+              </div>
             </div>
           )}
         </>

@@ -45,9 +45,14 @@ describe('IssueCard', () => {
     expect(onClick).toHaveBeenCalledOnce()
   })
 
-  it('is not clickable when resolved', () => {
+  it('is not clickable when resolved and no onClick', () => {
+    render(<IssueCard commitment={commitments.stayExtension} />)
+    expect(screen.getByRole('button')).toBeDisabled()
+  })
+
+  it('is clickable when resolved but onClick is provided', () => {
     const onClick = vi.fn()
     render(<IssueCard commitment={commitments.stayExtension} onClick={onClick} />)
-    expect(screen.getByRole('button')).toBeDisabled()
+    expect(screen.getByRole('button')).not.toBeDisabled()
   })
 })

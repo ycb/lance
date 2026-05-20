@@ -16,7 +16,7 @@ export function IssueCard({ commitment, onClick }) {
     <button
       className={`w-full text-left mb-3 ${isResolved ? 'opacity-55' : ''}`}
       onClick={onClick}
-      disabled={isResolved}
+      disabled={isResolved && !onClick}
     >
       <IssueSummaryCard
         title={title}

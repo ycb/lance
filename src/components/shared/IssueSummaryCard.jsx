@@ -43,7 +43,7 @@ export function IssueSummaryCard({
       {/* Board: guest · room + elapsed */}
       {(guest || elapsed) && (
         <div className="px-3 pt-2 pb-0" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {guest && room && <span style={{ fontSize: 11, color: '#6b7280' }}>{guest} · {room}</span>}
+          {guest && room && <span style={{ fontSize: 14, fontWeight: 700, color: '#111827' }}>{guest} · {room}</span>}
           {elapsed && <span style={{ fontSize: 11, color: '#9ca3af' }}>{elapsed}</span>}
         </div>
       )}

@@ -26,7 +26,7 @@ describe('OriginTicketDetail', () => {
     const linkedTicketSection = sections[3]
     const teamTicketsSection = sections[4]
 
-    expect(guestSection.textContent).toContain('Alex Chen')
+    expect(guestSection.textContent).toContain('Nina Patel')
     expect(reservationSection.textContent).toContain('Active Reservation')
     expect(customerTicketSection.textContent).toContain('Customer Ticket')
     expect(linkedTicketSection.textContent).toContain('Linked Ticket')
@@ -46,7 +46,7 @@ describe('OriginTicketDetail', () => {
 
     expect(screen.getByText('Ticket Details')).toBeInTheDocument()
     expect(screen.getByText('Diamond')).toBeInTheDocument()
-    expect(screen.getAllByText('Alex Chen').length).toBeGreaterThanOrEqual(2)
+    expect(screen.getAllByText('Nina Patel').length).toBeGreaterThanOrEqual(2)
     expect(screen.getByText('View in PMS →')).toBeInTheDocument()
     expect(screen.getByText('Customer Ticket')).toBeInTheDocument()
     expect(screen.getByText('Guest requests compensation after room move')).toBeInTheDocument()

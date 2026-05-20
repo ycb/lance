@@ -244,7 +244,7 @@ export function DeliveryBoard() {
     ...commitments.acComp,
     severity: 'resolved',
     stepLabel: 'Comp authorized · $195',
-    currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
+    currentAssignee: { initials: 'SM', deptId: 'SUP', name: 'Sarah M.', role: 'Supervisor' },
     chainSteps: commitments.acComp.chainSteps.map(s =>
       s.status === 'escalated' ? { ...s, status: 'complete' } : s
     ),

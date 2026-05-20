@@ -33,7 +33,7 @@ export function LockScreen() {
                 <p className="text-[10px] text-white/50">now</p>
               </div>
               <p className="text-sm text-white/90 leading-snug font-medium">
-                Alex Chen · Rm 408 — comp request needs your approval
+                Nina Patel · Rm 408 — comp request needs your approval
               </p>
             </div>
           </div>

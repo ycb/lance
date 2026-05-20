@@ -35,15 +35,15 @@ function getDraftSMS(optionId, fbAmount) {
 
 function getDraftEmail(optionId, fbAmount) {
   if (optionId === 'comp_night') {
-    return `Dear Alex,\n\nWe sincerely apologize for the inconvenience of your unplanned room move during your stay at The Grand Hilton.\n\nAs a gesture of goodwill, we've added a one-night complimentary credit to your Hilton Honors account — valid at any Hilton property, up to $195 per night.\n\nCredit code: COMP-408-051826\n\nThis credit has been applied to your Hilton Honors account and will appear within 24 hours. You may apply it directly at checkout or present the code at any Hilton front desk.\n\nWe value your loyalty and look forward to welcoming you back.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+    return `Dear Nina,\n\nWe sincerely apologize for the inconvenience of your unplanned room move during your stay at The Grand Hilton.\n\nAs a gesture of goodwill, we've added a one-night complimentary credit to your Hilton Honors account — valid at any Hilton property, up to $195 per night.\n\nCredit code: COMP-408-051826\n\nThis credit has been applied to your Hilton Honors account and will appear within 24 hours. You may apply it directly at checkout or present the code at any Hilton front desk.\n\nWe value your loyalty and look forward to welcoming you back.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
   }
   if (optionId === 'comp_fb') {
-    return `Dear Alex,\n\nWe sincerely apologize for the disruption to your stay at The Grand Hilton.\n\nAs a gesture of goodwill, we've applied a ${fbAmount} food & beverage credit to your reservation, valid through your stay at any of our dining venues.\n\nCredit code: FB-408-051826\n\nSimply mention this code when ordering and the credit will be applied automatically. No action needed on your part.\n\nWe hope the rest of your stay is exceptional.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+    return `Dear Nina,\n\nWe sincerely apologize for the disruption to your stay at The Grand Hilton.\n\nAs a gesture of goodwill, we've applied a ${fbAmount} food & beverage credit to your reservation, valid through your stay at any of our dining venues.\n\nCredit code: FB-408-051826\n\nSimply mention this code when ordering and the credit will be applied automatically. No action needed on your part.\n\nWe hope the rest of your stay is exceptional.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
   }
   if (optionId === 'comp_none') {
-    return `Dear Alex,\n\nThank you for your patience and understanding during your stay at The Grand Hilton.\n\nWe sincerely apologize for the inconvenience of your unplanned room move. Your comfort is our top priority and we regret falling short of the experience you deserve.\n\nWe've shared your feedback with our team to prevent similar situations in the future. If there is anything we can do to make the remainder of your stay more comfortable, please reach out directly.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+    return `Dear Nina,\n\nThank you for your patience and understanding during your stay at The Grand Hilton.\n\nWe sincerely apologize for the inconvenience of your unplanned room move. Your comfort is our top priority and we regret falling short of the experience you deserve.\n\nWe've shared your feedback with our team to prevent similar situations in the future. If there is anything we can do to make the remainder of your stay more comfortable, please reach out directly.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
   }
-  return `Dear Alex,\n\nThank you for your patience. We value your loyalty and want to ensure your experience with us is exceptional.\n\nPlease don't hesitate to reach out if there is anything we can do.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+  return `Dear Nina,\n\nThank you for your patience. We value your loyalty and want to ensure your experience with us is exceptional.\n\nPlease don't hesitate to reach out if there is anything we can do.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
 }
 
 function getToastMessage(optionId, fbAmount) {
@@ -322,7 +322,7 @@ export function IssueDetail() {
         ...commitments.acComp,
         severity: 'resolved',
         requestStats: { total: 2, open: 0 },
-        currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
+        currentAssignee: { initials: 'SM', deptId: 'SUP', name: 'Sarah M.', role: 'Supervisor' },
         chainSteps: commitments.acComp.chainSteps.map(s =>
           s.status === 'escalated' ? { ...s, status: 'complete' } : s
         ),

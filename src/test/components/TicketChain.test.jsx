@@ -9,7 +9,7 @@ const { acComp } = commitments
 describe('TicketChain', () => {
   it('renders guest card with name and description', () => {
     render(<TicketChain timeline={acComp.timeline} guest={acComp.guest} room={acComp.room} />)
-    expect(screen.getByText('Alex Chen · Rm 408')).toBeInTheDocument()
+    expect(screen.getByText('Nina Patel · Rm 408')).toBeInTheDocument()
     expect(screen.getByText('Reports problem with AC unit')).toBeInTheDocument()
   })
 

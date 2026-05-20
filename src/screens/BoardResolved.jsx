@@ -45,7 +45,7 @@ export function BoardResolved() {
           <div className="w-8 h-8 rounded-full bg-white/25 flex items-center justify-center text-white font-bold text-sm shrink-0">✓</div>
           <div>
             <p className="text-sm font-bold text-white">3/3 promises kept this shift</p>
-            <p className="text-xs text-green-100">Lance has notified Alex Chen and Room 408</p>
+            <p className="text-xs text-green-100">Lance has notified Nina Patel and Room 408</p>
           </div>
         </motion.div>
 

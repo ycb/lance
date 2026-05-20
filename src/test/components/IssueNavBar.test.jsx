@@ -28,7 +28,7 @@ describe('IssueNavBar', () => {
       />,
     )
 
-    expect(screen.getByText('Alex Chen · Rm 408')).toBeInTheDocument()
+    expect(screen.getByText('Nina Patel · Rm 408')).toBeInTheDocument()
     expect(screen.getByText('Diamond')).toBeInTheDocument()
     expect(container.querySelector('[data-testid="nav-loyalty-slot"]')).toContainElement(screen.getByText('Diamond'))
     expect(screen.getByText('Check-in May 17 · 3 nights · 2 requests | 1 open')).toBeInTheDocument()
@@ -93,7 +93,7 @@ describe('IssueNavBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByText('Alex Chen · Rm 408'))
+    fireEvent.click(screen.getByText('Nina Patel · Rm 408'))
     fireEvent.click(screen.getByText(/Guest relocated to Room 408/))
 
     expect(onOriginTicketPress).toHaveBeenCalledTimes(2)
@@ -155,7 +155,7 @@ describe('IssueNavBar', () => {
     expect(container.firstChild).toHaveClass('active:bg-gray-100')
     expect(container.firstChild).toHaveClass('hover:bg-gray-50')
 
-    fireEvent.click(screen.getByText('Alex Chen · Rm 408'))
+    fireEvent.click(screen.getByText('Nina Patel · Rm 408'))
 
     expect(onOriginTicketPress).toHaveBeenCalledTimes(1)
   })

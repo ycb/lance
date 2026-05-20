@@ -13,6 +13,7 @@ export const DEMO_STATES = [
 export const useDemoFlow = create((set, get) => ({
   currentIndex: 0,
   currentState: DEMO_STATES[0],
+  compResolved: false,
   advance: () => {
     const next = get().currentIndex + 1
     if (next < DEMO_STATES.length) {
@@ -23,5 +24,6 @@ export const useDemoFlow = create((set, get) => ({
     const index = DEMO_STATES.indexOf(state)
     if (index !== -1) set({ currentIndex: index, currentState: state })
   },
-  reset: () => set({ currentIndex: 0, currentState: DEMO_STATES[0] }),
+  resolveComp: () => set({ compResolved: true }),
+  reset: () => set({ currentIndex: 0, currentState: DEMO_STATES[0], compResolved: false }),
 }))

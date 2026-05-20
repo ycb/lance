@@ -236,11 +236,21 @@ function filterCommitments(all, filter) {
 }
 
 export function DeliveryBoard() {
-  const { advance } = useDemoFlow()
+  const { advance, goTo, compResolved } = useDemoFlow()
   const [activeTab, setActiveTab] = useState('issues')
   const [filter, setFilter] = useState('critical')
 
-  const coreIssues  = [commitments.acComp, commitments.cabana, commitments.stayExtension]
+  const acCard = compResolved ? {
+    ...commitments.acComp,
+    severity: 'resolved',
+    stepLabel: 'Comp authorized · $195',
+    currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
+    chainSteps: commitments.acComp.chainSteps.map(s =>
+      s.status === 'escalated' ? { ...s, status: 'complete' } : s
+    ),
+  } : commitments.acComp
+
+  const coreIssues  = [acCard, commitments.cabana, commitments.stayExtension]
   const filteredCore  = filterCommitments(coreIssues, filter)
   const filteredExtra = filterCommitments(EXTRA_CARDS, filter)
   const allFiltered   = [...filteredCore, ...filteredExtra]
@@ -270,7 +280,11 @@ export function DeliveryBoard() {
               <IssueCard
                 key={commitment.id}
                 commitment={commitment}
-                onClick={commitment.id === 'cabana' ? advance : undefined}
+                onClick={
+                  commitment.id === 'cabana'   ? advance :
+                  commitment.id === 'ac_comp'  ? () => goTo('ISSUE_DETAIL_COMP') :
+                  undefined
+                }
               />
             ))}
             {filteredExtra.map(commitment => (

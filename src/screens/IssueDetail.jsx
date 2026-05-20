@@ -390,7 +390,7 @@ function TabBar({ active, onChange, counts }) {
 // ─── Main IssueDetail ─────────────────────────────────────────────────────────
 
 export function IssueDetail() {
-  const { currentState, advance, goTo } = useDemoFlow()
+  const { currentState, advance, goTo, resolveComp } = useDemoFlow()
   const commitment = COMMITMENT_MAP[currentState]
 
   const [tab, setTab]               = useState('tickets')
@@ -412,6 +412,7 @@ export function IssueDetail() {
   }
 
   const handleSend = () => {
+    resolveComp()
     advance()
     toast(getToastMessage(selectedComp, fbAmount), { duration: 3000 })
   }

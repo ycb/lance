@@ -72,25 +72,25 @@ export function IssueNavBar({
       onKeyDown={handleSummaryKeyDown}
       style={{ cursor: 'pointer' }}
     >
-      {/* Top row: back + bold title + elapsed */}
+      {/* Top row: title + loyalty + close X */}
       <div className="flex items-center gap-2 px-4 pt-2.5 pb-1">
-        <button
-          onClick={event => {
-            event.stopPropagation()
-            onBack?.()
-          }}
-          className="shrink-0 text-base font-bold leading-none"
-          style={{ color: '#3363AC' }}
-          aria-label="Back"
-        >
-          ←
-        </button>
         <div className="flex-1 min-w-0 flex items-center gap-1.5">
           <p className="font-bold text-sm text-gray-900 truncate">{guest} · {room}</p>
         </div>
         <div data-testid="nav-loyalty-slot" className="shrink-0 flex items-center">
           <LoyaltyBadge tier={loyaltyTier} />
         </div>
+        <button
+          onClick={event => {
+            event.stopPropagation()
+            onBack?.()
+          }}
+          className="shrink-0 flex items-center justify-center"
+          style={{ width: 24, height: 24, borderRadius: 12, background: '#f3f4f6', color: '#6b7280', fontSize: 14, lineHeight: 1 }}
+          aria-label="Close"
+        >
+          ✕
+        </button>
       </div>
 
       {checkIn && nights && requestContext && (

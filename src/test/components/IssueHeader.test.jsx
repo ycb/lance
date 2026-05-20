@@ -6,7 +6,7 @@ import { commitments } from '../../data/scenario'
 describe('IssueHeader', () => {
   it('renders room number', () => {
     render(<IssueHeader commitment={commitments.acComp} />)
-    expect(screen.getByText(/Rm 412/)).toBeInTheDocument()
+    expect(screen.getByText(/Rm 408/)).toBeInTheDocument()
   })
 
   it('renders elapsed time', () => {

@@ -3,6 +3,8 @@
 // Left column: 22px avatar/badge + absolute connector line.
 // Right column: card (white or grey/amber for AI).
 
+import { useState } from 'react'
+
 const DEPT_COLORS = {
   FD: '#3B82F6', HK: '#A855F7', ME: '#F97316',
   FB: '#F59E0B', RW: '#14B8A6', SEC: '#64748B', SUP: '#002E5A',
@@ -65,8 +67,60 @@ function CheckDot({ done }) {
   return null
 }
 
-function OverflowDots() {
-  return <span style={{ fontSize: 14, color: '#9ca3af', flexShrink: 0 }}>···</span>
+function OverflowMenu() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <div style={{ position: 'relative', flexShrink: 0 }}>
+      <button
+        aria-label="AI action menu"
+        onClick={() => setOpen(value => !value)}
+        style={{
+          background: 'transparent',
+          border: 0,
+          color: '#9ca3af',
+          cursor: 'pointer',
+          fontSize: 14,
+          lineHeight: 1,
+          padding: '2px 3px',
+        }}
+      >
+        ···
+      </button>
+      {open && (
+        <div
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 20,
+            zIndex: 5,
+            minWidth: 86,
+            background: 'white',
+            border: '1px solid #e5e7eb',
+            borderRadius: 6,
+            boxShadow: '0 8px 18px rgba(15, 23, 42, 0.12)',
+            padding: 4,
+          }}
+        >
+          <button style={menuItemStyle} onClick={() => setOpen(false)}>See why</button>
+          <button style={menuItemStyle} onClick={() => setOpen(false)}>Flag this</button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+const menuItemStyle = {
+  display: 'block',
+  width: '100%',
+  background: 'transparent',
+  border: 0,
+  borderRadius: 4,
+  color: '#374151',
+  cursor: 'pointer',
+  fontSize: 10,
+  padding: '5px 7px',
+  textAlign: 'left',
 }
 
 function Timestamp({ time }) {
@@ -99,7 +153,7 @@ function AIGreyCard({ event }) {
         {event.text}
         <Timestamp time={event.time} />
       </div>
-      <OverflowDots />
+      <OverflowMenu />
     </div>
   )
 }
@@ -112,15 +166,36 @@ function AIAmberCard({ event }) {
         {event.detail && <div style={{ fontSize: 10, color: '#374151', marginTop: 1 }}>{event.detail}</div>}
         <Timestamp time={event.time} />
       </div>
-      <CheckDot done="pending" />
     </div>
   )
 }
 
-function StaffCard({ event }) {
+function findTeamTicketForEvent(teamTickets, event) {
+  return teamTickets.find(ticket => ticket.sourceEventId === event.id)
+}
+
+function StaffCard({ event, teamTicket, onTeamTicketPress }) {
   const isActive = event.status === 'active'
+  const interactive = Boolean(teamTicket && onTeamTicketPress)
+  const Component = interactive ? 'button' : 'div'
+
   return (
-    <div style={{ flex: 1, background: 'white', border: isActive ? '2px solid #002E5A' : '1px solid #e5e7eb', borderRadius: 6, padding: '6px 8px', display: 'flex', alignItems: 'center', gap: 8 }}>
+    <Component
+      type={interactive ? 'button' : undefined}
+      onClick={interactive ? () => onTeamTicketPress(teamTicket) : undefined}
+      style={{
+        flex: 1,
+        background: 'white',
+        border: isActive ? '2px solid #002E5A' : '1px solid #e5e7eb',
+        borderRadius: 6,
+        padding: '6px 8px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        cursor: interactive ? 'pointer' : 'default',
+        textAlign: 'left',
+      }}
+    >
       <div style={{ flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
           <span style={{ fontSize: 10, fontWeight: 600 }}>{event.name}</span>
@@ -136,13 +211,13 @@ function StaffCard({ event }) {
         <Timestamp time={event.time} />
       </div>
       <CheckDot done={event.status === 'complete' ? 'check' : 'pending'} />
-    </div>
+    </Component>
   )
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export function TicketChain({ timeline, guest, room }) {
+export function TicketChain({ timeline, teamTickets = [], guest, room, onTeamTicketPress }) {
   const last = timeline.length - 1
 
   return (
@@ -170,12 +245,14 @@ export function TicketChain({ timeline, guest, room }) {
         }
 
         if (event.type === 'staff_step') {
+          const teamTicket = findTeamTicketForEvent(teamTickets, event)
+
           return (
             <div key={event.id} style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
               <ConnectorLeft position={position}>
                 <StaffAvatar initials={event.initials} deptId={event.deptId} />
               </ConnectorLeft>
-              <StaffCard event={event} />
+              <StaffCard event={event} teamTicket={teamTicket} onTeamTicketPress={onTeamTicketPress} />
             </div>
           )
         }

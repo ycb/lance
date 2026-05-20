@@ -8,8 +8,11 @@ import { IssueNavBar } from '@/components/issues/IssueNavBar'
 import { TicketChain } from '@/components/issues/TicketChain'
 import { MessagesPanel } from '@/components/issues/MessagesPanel'
 import { PhotosPanel } from '@/components/issues/PhotosPanel'
-import { DraftMessage } from '@/components/issues/DraftMessage'
+import { OriginTicketDetail } from '@/components/issues/OriginTicketDetail'
+import { TeamTicketDetail } from '@/components/issues/TeamTicketDetail'
+import { LinkedTicketDetail } from '@/components/issues/LinkedTicketDetail'
 import { Button } from '@/components/ui/button'
+import { AISummary } from '@/components/shared/AISummary'
 import { commitments } from '@/data/scenario'
 
 const COMMITMENT_MAP = {
@@ -17,24 +20,37 @@ const COMMITMENT_MAP = {
   ISSUE_DETAIL_CABANA: commitments.cabana,
 }
 
-function getDraft(optionId, fbAmount) {
+function getDraftSMS(optionId, fbAmount) {
   if (optionId === 'comp_night') {
-    return `Dear Guest,\n\nWe sincerely apologize for the inconvenience caused by the AC issue and the need to relocate you. As a valued guest, we've applied a one-night credit of $195 to your account — no action needed on your part.\n\nWe're committed to making the rest of your stay exceptional.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`
+    return `In consideration for the unanticipated room switch, we've issued a credit for one complimentary night at any Hilton property, up to $195. See your email for full details.`
   }
   if (optionId === 'comp_fb') {
-    return `Dear Guest,\n\nWe sincerely apologize for the disruption to your stay. As a gesture of goodwill, we've applied a ${fbAmount} F&B credit to your account — enjoy it at any of our dining venues.\n\nWe look forward to making it up to you.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`
+    return `In consideration for the unanticipated room switch, we've added a ${fbAmount} F&B credit to your reservation. Enjoy at any of our dining venues — see your email for details.`
   }
   if (optionId === 'comp_none') {
-    return `Dear Guest,\n\nWe sincerely apologize for the inconvenience caused during your stay. Your comfort is our top priority and we're sorry we fell short.\n\nIf there's anything we can do to make the rest of your stay more comfortable, please don't hesitate to reach out.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`
+    return `We're sorry for the inconvenience during your stay at The Grand Hilton. We've noted your feedback and hope the rest of your stay is exceptional. Please check your email for a personal note.`
   }
-  return `Dear Guest,\n\nThank you for your patience. We value your business and want to ensure your experience with us is exceptional.\n\nWarmly,\nJordan S.\nShift Supervisor, The Grand Hilton`
+  return `Thank you for your patience. Please check your email for a personal note from our team.`
+}
+
+function getDraftEmail(optionId, fbAmount) {
+  if (optionId === 'comp_night') {
+    return `Dear Alex,\n\nWe sincerely apologize for the inconvenience of your unplanned room move during your stay at The Grand Hilton.\n\nAs a gesture of goodwill, we've added a one-night complimentary credit to your Hilton Honors account — valid at any Hilton property, up to $195 per night.\n\nCredit code: COMP-408-051826\n\nThis credit has been applied to your Hilton Honors account and will appear within 24 hours. You may apply it directly at checkout or present the code at any Hilton front desk.\n\nWe value your loyalty and look forward to welcoming you back.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+  }
+  if (optionId === 'comp_fb') {
+    return `Dear Alex,\n\nWe sincerely apologize for the disruption to your stay at The Grand Hilton.\n\nAs a gesture of goodwill, we've applied a ${fbAmount} food & beverage credit to your reservation, valid through your stay at any of our dining venues.\n\nCredit code: FB-408-051826\n\nSimply mention this code when ordering and the credit will be applied automatically. No action needed on your part.\n\nWe hope the rest of your stay is exceptional.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+  }
+  if (optionId === 'comp_none') {
+    return `Dear Alex,\n\nThank you for your patience and understanding during your stay at The Grand Hilton.\n\nWe sincerely apologize for the inconvenience of your unplanned room move. Your comfort is our top priority and we regret falling short of the experience you deserve.\n\nWe've shared your feedback with our team to prevent similar situations in the future. If there is anything we can do to make the remainder of your stay more comfortable, please reach out directly.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
+  }
+  return `Dear Alex,\n\nThank you for your patience. We value your loyalty and want to ensure your experience with us is exceptional.\n\nPlease don't hesitate to reach out if there is anything we can do.\n\nWarm regards,\nSarah M.\nShift Supervisor, The Grand Hilton`
 }
 
 function getToastMessage(optionId, fbAmount) {
-  if (optionId === 'comp_night') return 'Rm 412 notified · $195 comp issued'
-  if (optionId === 'comp_fb') return `Rm 412 notified · ${fbAmount} F&B credit issued`
-  if (optionId === 'comp_none') return 'Rm 412 notified · Apology sent'
-  return 'Rm 412 notified · Response sent'
+  if (optionId === 'comp_night') return 'Rm 408 notified · $195 comp issued'
+  if (optionId === 'comp_fb') return `Rm 408 notified · ${fbAmount} F&B credit issued`
+  if (optionId === 'comp_none') return 'Rm 408 notified · Apology sent'
+  return 'Rm 408 notified · Response sent'
 }
 
 // ─── Resolution picker overlay ────────────────────────────────────────────────
@@ -55,11 +71,15 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
-        <div className="bg-blue-50 rounded-xl px-4 py-3 mb-4">
-          <p className="text-xs font-semibold text-blue-700 uppercase tracking-wider mb-1">AI Summary</p>
-          <p className="text-sm text-blue-900 leading-relaxed">{commitment.aiSummary}</p>
-          <p className="text-[10px] text-blue-600 mt-1.5 font-medium">{commitment.escalationReason}</p>
-        </div>
+        {commitment.aiSummary && (
+          <div className="pb-2">
+            <AISummary
+              variant="badge"
+              text={commitment.aiSummary}
+              escalationReason={commitment.escalationReason}
+            />
+          </div>
+        )}
 
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pb-1">Choose Response</p>
 
@@ -131,8 +151,143 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
 
 // ─── Draft & send overlay ─────────────────────────────────────────────────────
 
-function SendView({ commitment, selected, fbAmount, onBack, onSend }) {
-  const [draft, setDraft] = useState(() => getDraft(selected, fbAmount))
+const CHANNELS = [
+  { id: 'sms',   icon: '📱', label: 'Text Message' },
+  { id: 'email', icon: '📧', label: 'Email'        },
+]
+
+function DraftAccordionItem({ step, icon, label, draft, viewed, expanded, onToggle }) {
+  const [text, setText] = useState(draft)
+  const [editing, setEditing] = useState(false)
+
+  return (
+    <div
+      style={{
+        border: expanded ? '1.5px solid #3363AC' : '1px solid #e5e7eb',
+        borderRadius: 12,
+        overflow: 'hidden',
+        background: 'white',
+      }}
+    >
+      {/* Header row */}
+      <button
+        onClick={onToggle}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          width: '100%',
+          padding: '12px 14px',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          textAlign: 'left',
+        }}
+      >
+        {/* Step circle */}
+        <span style={{
+          width: 22,
+          height: 22,
+          borderRadius: '50%',
+          background: viewed ? '#002E5A' : '#f3f4f6',
+          color: viewed ? 'white' : '#9ca3af',
+          fontSize: 11,
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          {viewed ? '✓' : step}
+        </span>
+
+        <span style={{ fontSize: 13 }}>{icon}</span>
+
+        <span style={{
+          flex: 1,
+          fontSize: 13,
+          fontWeight: 600,
+          color: '#111827',
+        }}>
+          {label}
+        </span>
+
+        {/* Status chip */}
+        {viewed ? (
+          <span style={{ fontSize: 10, fontWeight: 600, color: '#15803d' }}>Reviewed</span>
+        ) : (
+          <span style={{ fontSize: 10, color: '#9ca3af' }}>Tap to review</span>
+        )}
+
+        {/* Chevron */}
+        <span style={{
+          fontSize: 11,
+          color: '#9ca3af',
+          transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
+          transition: 'transform 0.15s ease',
+          marginLeft: 4,
+        }}>▶</span>
+      </button>
+
+      {/* Draft body */}
+      {expanded && (
+        <div style={{ borderTop: '1px solid #f3f4f6' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 14px 4px' }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.5 }}>
+              Draft
+            </p>
+            <button
+              style={{ fontSize: 11, color: '#3363AC', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer' }}
+              onClick={() => setEditing(e => !e)}
+            >
+              {editing ? 'Done' : 'Edit'}
+            </button>
+          </div>
+          <div style={{ padding: '0 14px 14px' }}>
+            {editing ? (
+              <textarea
+                value={text}
+                onChange={e => setText(e.target.value)}
+                style={{
+                  width: '100%',
+                  fontSize: 12,
+                  lineHeight: 1.5,
+                  color: '#111827',
+                  border: '1px solid #e5e7eb',
+                  borderRadius: 8,
+                  padding: '8px 10px',
+                  minHeight: 100,
+                  resize: 'none',
+                  outline: 'none',
+                  fontFamily: 'inherit',
+                  boxSizing: 'border-box',
+                }}
+              />
+            ) : (
+              <p style={{ fontSize: 12, color: '#374151', lineHeight: 1.55, whiteSpace: 'pre-line' }}>
+                {text}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function SendView({ selected, fbAmount, onBack, onSend }) {
+  const smsDraft   = getDraftSMS(selected, fbAmount)
+  const emailDraft = getDraftEmail(selected, fbAmount)
+
+  const [expanded, setExpanded] = useState(null)
+  const [viewed, setViewed]     = useState(new Set())
+
+  const toggle = (id) => {
+    setExpanded(prev => prev === id ? null : id)
+    setViewed(prev => new Set([...prev, id]))
+  }
+
+  const allReviewed = viewed.has('sms') && viewed.has('email')
 
   return (
     <motion.div
@@ -148,38 +303,45 @@ function SendView({ commitment, selected, fbAmount, onBack, onSend }) {
         <p className="text-sm font-semibold text-foreground flex-1">Send to Guest</p>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
-        <div>
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Contact Method</p>
-          <div className="space-y-2">
-            <div className="flex items-center justify-between px-4 py-3 bg-muted/40 rounded-xl border border-border">
-              <div className="flex items-center gap-2">
-                <span className="text-base">📱</span>
-                <div>
-                  <p className="text-xs font-medium text-foreground">Text message</p>
-                  <p className="text-[10px] text-muted-foreground">We're on it — update coming shortly</p>
-                </div>
-              </div>
-              <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Immediate</span>
-            </div>
-            <div className="flex items-center justify-between px-4 py-3 bg-muted/40 rounded-xl border border-border">
-              <div className="flex items-center gap-2">
-                <span className="text-base">📧</span>
-                <div>
-                  <p className="text-xs font-medium text-foreground">Email</p>
-                  <p className="text-[10px] text-muted-foreground">Comp details + full apology</p>
-                </div>
-              </div>
-              <span className="text-[10px] bg-muted text-muted-foreground px-2 py-0.5 rounded-full font-medium">Within 5 min</span>
-            </div>
-          </div>
+      <div className="flex-1 overflow-y-auto px-4 py-4">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+          Approve Final Messaging
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <DraftAccordionItem
+            step={1}
+            icon="📱"
+            label="Text Message"
+            draft={smsDraft}
+            viewed={viewed.has('sms')}
+            expanded={expanded === 'sms'}
+            onToggle={() => toggle('sms')}
+          />
+          <DraftAccordionItem
+            step={2}
+            icon="📧"
+            label="Email"
+            draft={emailDraft}
+            viewed={viewed.has('email')}
+            expanded={expanded === 'email'}
+            onToggle={() => toggle('email')}
+          />
         </div>
 
-        <DraftMessage initialText={draft} />
+        {!allReviewed && (
+          <p style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center', marginTop: 16 }}>
+            Review both drafts to enable sending
+          </p>
+        )}
       </div>
 
       <div className="px-4 pb-6 pt-3 border-t border-border bg-white shrink-0">
-        <Button className="w-full" size="lg" onClick={onSend}>
+        <Button
+          className="w-full"
+          size="lg"
+          disabled={!allReviewed}
+          onClick={onSend}
+        >
           Send &amp; Close Issue
         </Button>
       </div>
@@ -187,51 +349,10 @@ function SendView({ commitment, selected, fbAmount, onBack, onSend }) {
   )
 }
 
-// ─── Origin ticket card ───────────────────────────────────────────────────────
-
-function OriginTicket({ event, guest, room }) {
-  if (!event || event.type !== 'guest') return null
-  return (
-    <div
-      style={{ background: 'white', borderBottom: '1px solid #e5e7eb', padding: '8px 12px', cursor: 'pointer' }}
-      onClick={() => {}}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-        <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#f3f4f6', border: '2px solid #9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>
-          👤
-        </div>
-        <div style={{ flex: 1 }}>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#111827' }}>{guest} · {room}</span>
-          <div style={{ fontSize: 10, color: '#374151', marginTop: 1 }}>{event.text}</div>
-          <div style={{ fontSize: 9, color: '#9ca3af', marginTop: 1 }}>{event.time} · May 18, 2026</div>
-        </div>
-        <span style={{ fontSize: 11, color: '#9ca3af', flexShrink: 0 }}>›</span>
-      </div>
-    </div>
-  )
-}
-
-// ─── AI Summary strip ─────────────────────────────────────────────────────────
-
-function AISummary({ text }) {
-  if (!text) return null
-  return (
-    <div style={{ background: 'white', borderBottom: '1px solid #e5e7eb', padding: '10px 12px' }}>
-      <div style={{ background: '#eff6ff', borderLeft: '3px solid #3363AC', padding: '7px 9px', borderRadius: '0 6px 6px 0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 3 }}>
-          <span style={{ background: '#9ca3af', color: 'white', fontSize: 9, fontWeight: 700, padding: '1px 4px', borderRadius: 3 }}>AI</span>
-          <span style={{ fontSize: 10, fontWeight: 600, color: '#3363AC' }}>Summary</span>
-        </div>
-        <p style={{ fontSize: 10, color: '#374151' }}>{text}</p>
-      </div>
-    </div>
-  )
-}
-
 // ─── Tab bar ──────────────────────────────────────────────────────────────────
 
 const TABS = [
-  { id: 'tickets',  label: (n) => `Tickets (${n})`  },
+  { id: 'tickets',  label: (n) => `Team Tickets (${n})`  },
   { id: 'messages', label: (n) => `Messages (${n})` },
   { id: 'photos',   label: (n) => `Photos (${n})`   },
 ]
@@ -275,6 +396,9 @@ export function IssueDetail() {
 
   const [tab, setTab]               = useState('tickets')
   const [step, setStep]             = useState('detail')
+  const [showOriginDetail, setShowOriginDetail] = useState(false)
+  const [selectedTeamTicket, setSelectedTeamTicket] = useState(null)
+  const [selectedLinkedTicket, setSelectedLinkedTicket] = useState(null)
   const [selectedComp, setSelectedComp] = useState(null)
   const [fbAmount, setFbAmount]     = useState('$75')
   const [customText, setCustomText] = useState('')
@@ -283,55 +407,130 @@ export function IssueDetail() {
 
   const photos = (commitment.thread || []).filter(m => m.hasPhoto)
   const counts = {
-    tickets:  Math.max(0, (commitment.timeline || []).length - 1),
-    messages: (commitment.thread   || []).length,
+    tickets:  (commitment.teamTickets || []).length || (commitment.timeline || []).filter(event => event.type === 'staff_step').length,
+    messages: (commitment.thread   || []).filter(message => message.type !== 'system').length,
     photos:   photos.length,
   }
-
-  const navTitle = `${commitment.room} · ${commitment.guest}`
 
   const handleSend = () => {
     advance()
     toast(getToastMessage(selectedComp, fbAmount), { duration: 3000 })
   }
 
+  const detailOverlayOpen = showOriginDetail || Boolean(selectedTeamTicket) || Boolean(selectedLinkedTicket)
+
+  const handleTeamTicketPress = (ticket) => {
+    setSelectedTeamTicket(ticket)
+  }
+
+  const handleLinkedTicketPress = (linkedTicket) => {
+    setSelectedLinkedTicket(linkedTicket)
+  }
+
+  // Show resolution CTA in TeamTicketDetail when viewing the supervisor auth ticket
+  const isSupTicket = (t) => t?.deptId === 'SUP' && commitment.compOptions?.length > 0
+  const teamTicketResolutionHandler = selectedTeamTicket && isSupTicket(selectedTeamTicket)
+    ? () => {
+        setSelectedTeamTicket(null)
+        setShowOriginDetail(false)
+        setStep('resolution')
+      }
+    : undefined
+
   return (
     <div className="h-full flex flex-col relative overflow-hidden" style={{ background: '#F4F2F2' }}>
-      <AppHeader />
+      {!detailOverlayOpen && (
+        <>
+          <AppHeader />
 
-      <IssueNavBar
-        title={navTitle}
-        elapsed={commitment.elapsed}
-        onBack={() => {}}
-      />
+          <IssueNavBar
+            guest={commitment.guest}
+            room={commitment.room}
+            loyaltyTier={commitment.loyaltyTier}
+            originEvent={(commitment.timeline || [])[0]}
+            elapsed={commitment.elapsed}
+            checkIn={commitment.checkIn}
+            nights={commitment.nights}
+            ticketStats={commitment.ticketStats}
+            requestStats={commitment.requestStats}
+            originTicket={commitment.originTicket}
+            linkedTicket={commitment.linkedTicket}
+            teamTickets={commitment.teamTickets}
+            originChannel={commitment.originChannel}
+            aiSummary={commitment.aiSummary ?? commitment.summaryBrief}
+            onBack={() => {}}
+            onOriginTicketPress={() => setShowOriginDetail(true)}
+          />
 
-      <OriginTicket
-        event={(commitment.timeline || [])[0]}
-        guest={commitment.guest}
-        room={commitment.room}
-      />
+          <TabBar active={tab} onChange={setTab} counts={counts} />
 
-      <AISummary text={commitment.summaryBrief ?? commitment.aiSummary} />
+          <div className="flex-1 overflow-hidden">
+            {tab === 'tickets'  && (
+              <TicketChain
+                timeline={(commitment.timeline || []).slice(1)}
+                teamTickets={commitment.teamTickets || []}
+                guest={commitment.guest}
+                room={commitment.room}
+                onTeamTicketPress={handleTeamTicketPress}
+              />
+            )}
+            {tab === 'messages' && <MessagesPanel thread={commitment.thread || []} />}
+            {tab === 'photos'   && <PhotosPanel  photos={photos} />}
+          </div>
 
-      <TabBar active={tab} onChange={setTab} counts={counts} />
-
-      <div className="flex-1 overflow-hidden">
-        {tab === 'tickets'  && <TicketChain  timeline={(commitment.timeline || []).slice(1)} guest={commitment.guest} room={commitment.room} />}
-        {tab === 'messages' && <MessagesPanel thread={commitment.thread || []} />}
-        {tab === 'photos'   && <PhotosPanel  photos={photos} />}
-      </div>
-
-      {commitment.compOptions?.length > 0 && (
-        <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-200">
-          <button
-            className="w-full py-2.5 rounded-lg text-sm font-bold text-white"
-            style={{ background: '#002E5A' }}
-            onClick={() => setStep('resolution')}
-          >
-            Proceed to Resolution →
-          </button>
-        </div>
+          {commitment.compOptions?.length > 0 && (
+            <div className="shrink-0 px-3 py-3 bg-white border-t border-gray-200">
+              <button
+                className="w-full py-2.5 rounded-lg text-sm font-bold text-white"
+                style={{ background: '#002E5A' }}
+                onClick={() => setStep('resolution')}
+              >
+                Proceed to Resolution →
+              </button>
+            </div>
+          )}
+        </>
       )}
+
+      <AnimatePresence>
+        {showOriginDetail && (
+          <OriginTicketDetail
+            commitment={commitment}
+            originEvent={(commitment.timeline || [])[0]}
+            onBack={() => setShowOriginDetail(false)}
+            onTeamTicketPress={handleTeamTicketPress}
+            onLinkedTicketPress={handleLinkedTicketPress}
+          />
+        )}
+      </AnimatePresence>
+
+      {selectedTeamTicket && (
+        <TeamTicketDetail
+          ticket={selectedTeamTicket}
+          originTicket={commitment.originTicket}
+          onBack={() => {
+            setSelectedTeamTicket(null)
+            setShowOriginDetail(true)
+          }}
+          onClose={() => {
+            setSelectedTeamTicket(null)
+            setShowOriginDetail(false)
+          }}
+          onProceedToResolution={teamTicketResolutionHandler}
+        />
+      )}
+
+      <AnimatePresence>
+        {selectedLinkedTicket && (
+          <LinkedTicketDetail
+            ticket={selectedLinkedTicket}
+            onBack={() => {
+              setSelectedLinkedTicket(null)
+              setShowOriginDetail(true)
+            }}
+          />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {step === 'resolution' && (
@@ -352,7 +551,6 @@ export function IssueDetail() {
       <AnimatePresence>
         {step === 'send' && (
           <SendView
-            commitment={commitment}
             selected={selectedComp}
             fbAmount={fbAmount}
             onBack={() => setStep('resolution')}

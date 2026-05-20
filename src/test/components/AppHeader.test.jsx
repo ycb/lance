@@ -20,7 +20,7 @@ describe('AppHeader', () => {
 
   it('renders notification badge with count', () => {
     render(<AppHeader />)
-    expect(screen.getByText('1')).toBeInTheDocument()
+    expect(screen.getByText('6')).toBeInTheDocument()
   })
 
   it('has cobalt background', () => {

@@ -1,0 +1,351 @@
+<h2>IssueDetail V4w — Correct header hierarchy</h2>
+<p class="subtitle">Global AppHeader: logo + address only · Issue nav bar: ticket-specific</p>
+
+<div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; align-items: flex-start;">
+
+  <!-- SCREEN: IssueDetail -->
+  <div>
+    <p style="font-size: 10px; color: #6b7280; text-align: center; margin-bottom: 6px;">IssueDetail screen</p>
+    <div class="mockup" style="max-width: 300px;">
+      <div class="mockup-header">Issue Detail</div>
+      <div class="mockup-body" style="padding: 0; font-size: 12px; background: #F4F2F2;">
+
+        <!-- GLOBAL APP HEADER — same on every screen -->
+        <div style="background: #002E5A; padding: 9px 14px; display: flex; align-items: center; gap: 10px;">
+          <!-- Logo mark -->
+          <img src="data:image/png;base64,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" width="28" height="36" style="flex-shrink: 0; display: block;" />
+          <!-- Hotel name -->
+          <div>
+            <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: white; line-height: 1.3;">Hilton San Francisco<br>Union Square</div>
+          </div>
+          <!-- Right: user avatar with notification count -->
+          <div style="margin-left: auto; position: relative; display: inline-block;">
+            <div style="width: 30px; height: 30px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white;">SM</div>
+            <!-- Notification count badge -->
+            <div style="position: absolute; top: -3px; right: -3px; min-width: 16px; height: 16px; background: #B71234; border-radius: 8px; border: 1.5px solid #002E5A; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: white; padding: 0 3px;">1</div>
+          </div>
+        </div>
+
+        <!-- ISSUE NAV BAR — screen-level, not global -->
+        <div style="background: white; color: #002E5A; padding: 8px 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e5e7eb;">
+          <span style="font-size: 15px; color: #3363AC;">←</span>
+          <span style="font-weight: 700; font-size: 13px;">Room 412 · Alex Chen</span>
+          <span style="margin-left: auto; font-size: 11px; color: #6b7280;">47 min</span>
+        </div>
+
+        <!-- AI Summary -->
+        <div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 10px 12px;">
+          <div style="background: #eff6ff; border-left: 3px solid #3363AC; padding: 7px 9px; border-radius: 0 6px 6px 0;">
+            <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 3px;">
+              <span style="background: #9ca3af; color: white; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 3px;">AI</span>
+              <span style="font-size: 10px; font-weight: 600; color: #3363AC;">Summary</span>
+            </div>
+            <div style="font-size: 10px; color: #374151;">Guest relocated to Room 408. Comp request exceeds $100 frontline threshold — supervisor authorization required.</div>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <div style="background: white; border-bottom: 2px solid #e5e7eb;">
+          <div style="display: flex; justify-content: space-around; padding: 0 8px;" id="tab-bar">
+            <div onclick="switchTab('tickets')" id="tab-tickets" style="padding: 8px 4px; font-size: 11px; font-weight: 700; color: #002E5A; border-bottom: 2px solid #002E5A; margin-bottom: -2px; cursor: pointer; text-align: center;">Tickets (6)</div>
+            <div onclick="switchTab('messages')" id="tab-messages" style="padding: 8px 4px; font-size: 11px; color: #6b7280; cursor: pointer; text-align: center; border-bottom: 2px solid transparent; margin-bottom: -2px;">Messages (10)</div>
+            <div onclick="switchTab('photos')" id="tab-photos" style="padding: 8px 4px; font-size: 11px; color: #6b7280; cursor: pointer; text-align: center; border-bottom: 2px solid transparent; margin-bottom: -2px;">Photos (2)</div>
+          </div>
+        </div>
+
+        <script>
+        function switchTab(tab) {
+          // Tab labels
+          var tabs = ['tickets','messages','photos'];
+          tabs.forEach(function(t) {
+            var el = document.getElementById('tab-' + t);
+            var panel = document.getElementById('panel-' + t);
+            if (t === tab) {
+              el.style.color = '#002E5A';
+              el.style.fontWeight = '700';
+              el.style.borderBottom = '2px solid #002E5A';
+              if (panel) panel.style.display = 'block';
+            } else {
+              el.style.color = '#6b7280';
+              el.style.fontWeight = '400';
+              el.style.borderBottom = '2px solid transparent';
+              if (panel) panel.style.display = 'none';
+            }
+          });
+        }
+        </script>
+
+        <!-- PANEL: Tickets -->
+        <div id="panel-tickets" style="background: white; padding: 10px 12px; height: 310px; overflow-y: auto; border-bottom: 1px solid #e5e7eb;">
+
+          <!-- Alex Chen — first item -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px; cursor: pointer;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 50%; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; width: 22px; height: 22px; background: #f3f4f6; border: 2px solid #9ca3af; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px;">👤</div>
+            </div>
+            <div style="flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Alex Chen · Room 412</div><div style="font-size: 10px; color: #374151; margin-top: 1px;">Reports problem with AC unit</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:04 AM · May 18, 2026</div></div>
+              <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span style="color: #16a34a; font-size: 11px; line-height: 1;">✓</span></div>
+            </div>
+          </div>
+
+          <!-- AI dispatch -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; background: #e5e7eb; border-radius: 4px; padding: 2px 3px; font-size: 8px; font-weight: 700; color: #6b7280; width: 22px; text-align: center;">AI</div>
+            </div>
+            <div style="flex: 1; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; color: #374151;">Dispatched Marcus T. (Maintenance) to inspect AC unit in Room 412</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:05 AM · May 18, 2026</div></div>
+              <div style="font-size: 14px; color: #9ca3af; flex-shrink: 0;">···</div>
+            </div>
+          </div>
+
+          <!-- Marcus -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px; cursor: pointer;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; width: 22px; height: 22px; background: #dbeafe; border: 2px solid #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #1d4ed8;">MT</div>
+            </div>
+            <div style="flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Marcus T. · Maintenance</div><div style="font-size: 10px; color: #6b7280; margin-top: 1px;">Inspect + repair AC unit</div><div style="font-size: 10px; color: #374151; margin-top: 1px;">Repair scheduled: 05/23/2026</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:21 AM · May 18, 2026</div></div>
+              <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span style="color: #16a34a; font-size: 11px; line-height: 1;">✓</span></div>
+            </div>
+          </div>
+
+          <!-- AI room move -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; background: #e5e7eb; border-radius: 4px; padding: 2px 3px; font-size: 8px; font-weight: 700; color: #6b7280; width: 22px; text-align: center;">AI</div>
+            </div>
+            <div style="flex: 1; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; color: #374151;">Room move branch activated · dispatched Maria H. + James R. to relocate guest</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:26 AM · May 18, 2026</div></div>
+              <div style="font-size: 14px; color: #9ca3af; flex-shrink: 0;">···</div>
+            </div>
+          </div>
+
+          <!-- Maria -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px; cursor: pointer;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; width: 22px; height: 22px; background: #fce7f3; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #be185d;">MH</div>
+            </div>
+            <div style="flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">Maria H. · Housekeeping</div><div style="font-size: 10px; color: #6b7280; margin-top: 1px;">Prep Room 408</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:34 AM · May 18, 2026</div></div>
+              <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span style="color: #16a34a; font-size: 11px; line-height: 1;">✓</span></div>
+            </div>
+          </div>
+
+          <!-- James R. -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px; cursor: pointer;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; width: 22px; height: 22px; background: #f3e8ff; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #7e22ce;">SM</div>
+            </div>
+            <div style="flex: 1; background: white; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600;">James R. · Front Desk</div><div style="font-size: 10px; color: #6b7280; margin-top: 1px;">Relocate Alex Chen to Room 408</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:34 AM · May 18, 2026</div></div>
+              <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span style="color: #16a34a; font-size: 11px; line-height: 1;">✓</span></div>
+            </div>
+          </div>
+
+          <!-- AI Resolution Check -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; background: #fef3c7; border-radius: 4px; padding: 2px 3px; font-size: 8px; font-weight: 700; color: #92400e; width: 22px; text-align: center;">AI</div>
+            </div>
+            <div style="flex: 1; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; font-weight: 600; color: #92400e;">Resolution Check — Unresolved</div><div style="font-size: 10px; color: #374151; margin-top: 1px;">Comp request exceeds $100 frontline authority.</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:35 AM · May 18, 2026</div></div>
+              <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #16a34a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span style="color: #16a34a; font-size: 11px; line-height: 1;">✓</span></div>
+            </div>
+          </div>
+
+          <!-- AI Escalation -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 8px;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: -8px; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; background: #e5e7eb; border-radius: 4px; padding: 2px 3px; font-size: 8px; font-weight: 700; color: #6b7280; width: 22px; text-align: center;">AI</div>
+            </div>
+            <div style="flex: 1; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;"><div style="font-size: 10px; color: #374151;">Escalation request created · comp authorization required · dispatched to supervisor</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:36 AM · May 18, 2026</div></div>
+              <div style="font-size: 14px; color: #9ca3af; flex-shrink: 0;">···</div>
+            </div>
+          </div>
+
+          <!-- Sarah — last item, active -->
+          <div style="display: flex; gap: 8px; align-items: stretch; margin-bottom: 12px; cursor: pointer;">
+            <div style="position: relative; width: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; top: 0; bottom: 50%; left: 50%; width: 2px; background: #e5e7eb; transform: translateX(-50%);"></div>
+              <div style="position: relative; z-index: 1; width: 22px; height: 22px; background: #e0e7ff; border: 2px solid #002E5A; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #002E5A;">SM</div>
+            </div>
+            <div style="flex: 1; background: white; border: 2px solid #002E5A; border-radius: 6px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 2px;">
+                  <span style="font-size: 10px; font-weight: 600;">Sarah M. · Supervisor</span>
+                  <span style="background: #dbeafe; color: #002E5A; font-size: 7px; font-weight: 700; padding: 1px 4px; border-radius: 3px;">ACTIVE</span>
+                </div>
+                <div style="font-size: 10px; color: #6b7280;">Authorize comp · Room 412</div><div style="font-size: 9px; color: #9ca3af; margin-top: 2px;">9:36 AM · May 18, 2026</div>
+              </div>
+              <div style="width: 18px; height: 18px; border-radius: 50%; border: 2px solid #d1d5db; flex-shrink: 0;"></div>
+            </div>
+          </div>
+
+          <button style="width: 100%; background: white; color: #6b7280; border: 1px dashed #d1d5db; border-radius: 8px; padding: 7px; font-size: 11px;">+ Add Ticket</button>
+        </div>
+
+        <!-- PANEL: Messages -->
+        <div id="panel-messages" style="display: none; background: white; padding: 10px 12px; height: 310px; overflow-y: auto; border-bottom: 1px solid #e5e7eb;">
+
+          <!-- System event -->
+          <div style="text-align: center; margin-bottom: 10px;">
+            <span style="font-size: 9px; color: #9ca3af; background: #f3f4f6; padding: 2px 8px; border-radius: 10px;">Today 9:04 AM — Issue opened</span>
+          </div>
+
+          <!-- Marcus T. — on my way -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end;">
+            <div style="width: 22px; height: 22px; background: #dbeafe; border: 2px solid #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #1d4ed8; flex-shrink: 0;">MT</div>
+            <div style="flex: 1;">
+              <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px;">Marcus T. · Maintenance · 9:06 AM</div>
+              <div style="background: #f3f4f6; border-radius: 0 10px 10px 10px; padding: 7px 9px; font-size: 10px; color: #374151; display: inline-block; max-width: 90%;">On my way.</div>
+            </div>
+          </div>
+
+          <!-- Marcus T. — compressor update -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end;">
+            <div style="width: 22px; height: 22px; background: #dbeafe; border: 2px solid #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #1d4ed8; flex-shrink: 0;">MT</div>
+            <div style="flex: 1;">
+              <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px;">Marcus T. · Maintenance · 9:21 AM</div>
+              <div style="background: #f3f4f6; border-radius: 0 10px 10px 10px; padding: 7px 9px; font-size: 10px; color: #374151; display: inline-block; max-width: 90%;">Ordered a new compressor. Arrives next week.</div>
+            </div>
+          </div>
+
+          <!-- Maria H. -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end;">
+            <div style="width: 22px; height: 22px; background: #fce7f3; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #be185d; flex-shrink: 0;">MH</div>
+            <div style="flex: 1;">
+              <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px;">Maria H. · Housekeeping · 9:24 AM</div>
+              <div style="background: #f3f4f6; border-radius: 0 10px 10px 10px; padding: 7px 9px; font-size: 10px; color: #374151; display: inline-block; max-width: 90%;">Cleaning up a spill on the 3rd floor. Be there in 10 min.</div>
+            </div>
+          </div>
+
+          <!-- James R. -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end;">
+            <div style="width: 22px; height: 22px; background: #f3e8ff; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #7e22ce; flex-shrink: 0;">JR</div>
+            <div style="flex: 1;">
+              <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px;">James R. · Front Desk · 9:31 AM</div>
+              <div style="background: #f3f4f6; border-radius: 0 10px 10px 10px; padding: 7px 9px; font-size: 10px; color: #374151; display: inline-block; max-width: 90%;">Guest is asking about comp. Should I tell him a supervisor will follow up?</div>
+            </div>
+          </div>
+
+          <!-- System event -->
+          <div style="text-align: center; margin-bottom: 10px;">
+            <span style="font-size: 9px; color: #9ca3af; background: #f3f4f6; padding: 2px 8px; border-radius: 10px;">AI escalated to supervisor · 9:35 AM</span>
+          </div>
+
+          <!-- Maria H. — room ready -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end;">
+            <div style="width: 22px; height: 22px; background: #fce7f3; border: 2px solid #ec4899; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #be185d; flex-shrink: 0;">MH</div>
+            <div style="flex: 1;">
+              <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px;">Maria H. · Housekeeping · 9:38 AM</div>
+              <div style="background: #f3f4f6; border-radius: 0 10px 10px 10px; padding: 7px 9px; font-size: 10px; color: #374151; display: inline-block; max-width: 90%;">Room 408 is sparkling clean! ✨</div>
+            </div>
+          </div>
+
+          <!-- Sarah — right-aligned, current user -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end; flex-direction: row-reverse;">
+            <div style="width: 22px; height: 22px; background: #e0e7ff; border: 2px solid #002E5A; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #002E5A; flex-shrink: 0;">SM</div>
+            <div style="flex: 1; display: flex; justify-content: flex-end;">
+              <div>
+                <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px; text-align: right;">You · 9:41 AM</div>
+                <div style="background: #002E5A; border-radius: 10px 0 10px 10px; padding: 7px 9px; font-size: 10px; color: white; display: inline-block; max-width: 90%;">James — any more details?</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- James R. — responds to Sarah -->
+          <div style="display: flex; gap: 8px; margin-bottom: 10px; align-items: flex-end;">
+            <div style="width: 22px; height: 22px; background: #f3e8ff; border: 2px solid #a855f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #7e22ce; flex-shrink: 0;">JR</div>
+            <div style="flex: 1;">
+              <div style="font-size: 9px; color: #9ca3af; margin-bottom: 2px;">James R. · Front Desk · 9:44 AM</div>
+              <div style="background: #f3f4f6; border-radius: 0 10px 10px 10px; padding: 7px 9px; font-size: 10px; color: #374151; display: inline-block; max-width: 90%;">Guest feels room is a downgrade. Doesn't like the view. Prefers 1 queen instead of 2 twins. Expressed frustration and disappointment.</div>
+            </div>
+          </div>
+
+          <button style="width: 100%; background: white; color: #6b7280; border: 1px dashed #d1d5db; border-radius: 8px; padding: 7px; font-size: 11px; margin-top: 4px;">+ Add Message</button>
+        </div>
+
+        <!-- PANEL: Photos -->
+        <div id="panel-photos" style="display: none; background: white; padding: 10px 12px; height: 310px; overflow-y: auto; border-bottom: 1px solid #e5e7eb;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+
+            <!-- Photo 1 -->
+            <div style="border-radius: 6px; overflow: hidden; border: 1px solid #e5e7eb;">
+              <div style="background: #374151; height: 90px; display: flex; align-items: center; justify-content: center; font-size: 28px;">❄️</div>
+              <div style="padding: 5px 6px;">
+                <div style="font-size: 9px; font-weight: 600;">AC Unit — Room 412</div>
+                <div style="font-size: 8px; color: #9ca3af;">Marcus T. · 9:19 AM</div>
+              </div>
+            </div>
+
+            <!-- Photo 2 -->
+            <div style="border-radius: 6px; overflow: hidden; border: 1px solid #e5e7eb;">
+              <div style="background: #6b7280; height: 90px; display: flex; align-items: center; justify-content: center; font-size: 28px;">🛏️</div>
+              <div style="padding: 5px 6px;">
+                <div style="font-size: 9px; font-weight: 600;">Room 408 — prepped</div>
+                <div style="font-size: 8px; color: #9ca3af;">Maria H. · 9:28 AM</div>
+              </div>
+            </div>
+
+          </div>
+          <button style="width: 100%; background: white; color: #6b7280; border: 1px dashed #d1d5db; border-radius: 8px; padding: 7px; font-size: 11px; margin-top: 10px;">+ Add Photo</button>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div style="background: white; border-top: 1px solid #e5e7eb; padding: 10px 12px;">
+          <button style="width: 100%; background: #002E5A; color: white; border: none; border-radius: 8px; padding: 10px; font-size: 12px; font-weight: 700;">Proceed to Resolution →</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER ANATOMY -->
+  <div style="max-width: 240px;">
+    <p style="font-size: 10px; color: #6b7280; margin-bottom: 6px;">Header anatomy</p>
+    <div style="font-size: 10px; line-height: 1.8; color: #374151;">
+      <div style="background: #002E5A; color: white; padding: 6px 10px; border-radius: 4px; margin-bottom: 6px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <div style="flex: 1;">
+            <div style="font-size: 9px; font-weight: 700;">Hilton San Francisco</div>
+            <div style="font-size: 8px; color: #7CC4EE;">Union Square</div>
+          </div>
+          <div style="display: flex; gap: 4px; align-items: center;">
+            <div style="position: relative; width: 18px; height: 18px; background: rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px;">🔔<div style="position: absolute; top: 0; right: 0; width: 5px; height: 5px; background: #E15F00; border-radius: 50%;"></div></div>
+            <div style="width: 18px; height: 18px; background: rgba(255,255,255,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: white;">SM</div>
+          </div>
+        </div>
+        <div style="font-size: 8px; color: rgba(255,255,255,0.5); margin-top: 3px;">← Global AppHeader · identical on all screens</div>
+      </div>
+      <div style="background: white; border: 1px solid #e5e7eb; border-radius: 4px; padding: 6px 10px;">
+        <div style="font-size: 9px; font-weight: 700; color: #002E5A;">← Room 412 · Alex Chen <span style="margin-left: auto; float: right; color: #6b7280;">47 min</span></div>
+        <div style="font-size: 8px; color: #9ca3af; margin-top: 3px;">↑ Issue nav bar · white bg · content-level, not brand</div>
+      </div>
+    </div>
+    <div style="margin-top: 12px; font-size: 10px; color: #6b7280; line-height: 1.7;">
+      <div><strong style="color: #374151;">Global AppHeader</strong></div>
+      <div>— Hilton logo mark (logo.png)</div>
+      <div>— "Hilton San Francisco Union Square"</div>
+      <div>— 🔔 Alerts (top right, badge for unread)</div>
+      <div>— 👤 User menu (initials, top right)</div>
+      <div>— Same on every screen</div>
+      <div style="margin-top: 6px;"><strong style="color: #374151;">Issue nav bar</strong></div>
+      <div>— Back arrow ←</div>
+      <div>— Room + guest name</div>
+      <div>— Elapsed time (cyan)</div>
+      <div>— Only on issue screens</div>
+    </div>
+  </div>
+
+</div>

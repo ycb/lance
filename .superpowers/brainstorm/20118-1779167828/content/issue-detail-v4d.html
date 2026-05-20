@@ -1,0 +1,75 @@
+<h2>IssueDetail V4d — IssueHeader Hierarchy</h2>
+<p class="subtitle">Room/guest leads · AI summary prominent · type+status tags de-emphasized below</p>
+
+<div style="display: flex; justify-content: center;">
+  <div class="mockup" style="max-width: 300px;">
+    <div class="mockup-header">IssueHeader — revised order</div>
+    <div class="mockup-body" style="padding: 0; font-size: 12px; background: #f8f9fa;">
+
+      <!-- AppHeader -->
+      <div style="background: #003580; color: white; padding: 10px 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 16px;">←</span>
+        <span style="font-weight: 700; font-size: 13px;">AC Comp Request</span>
+        <span style="margin-left: auto; font-size: 11px; color: #93c5fd;">47 min</span>
+      </div>
+
+      <!-- IssueHeader: new order -->
+      <div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 12px 12px 10px;">
+
+        <!-- 1. Room + guest (leads) -->
+        <div style="font-weight: 700; font-size: 14px; color: #111; margin-bottom: 4px;">Room 412 · Alex Chen</div>
+
+        <!-- 2. Assignee -->
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 10px;">
+          <div style="width: 18px; height: 18px; background: #003580; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 8px; font-weight: 700;">SM</div>
+          <span style="color: #6b7280; font-size: 11px;">Sarah M. · Supervisor</span>
+        </div>
+
+        <!-- 3. AI Summary (prominent) -->
+        <div style="background: #eff6ff; border-left: 3px solid #003580; padding: 7px 9px; border-radius: 0 6px 6px 0; margin-bottom: 10px;">
+          <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 3px;">
+            <span style="background: #9ca3af; color: white; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 3px;">AI</span>
+            <span style="font-size: 10px; font-weight: 600; color: #003580;">Summary</span>
+          </div>
+          <div style="font-size: 10px; color: #374151;">Guest relocated to Room 408. Comp request exceeds $100 frontline threshold — supervisor authorization required.</div>
+        </div>
+
+        <!-- 4. Type + status tags — de-emphasized, below summary -->
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span style="font-size: 10px; color: #9ca3af; border: 1px solid #e5e7eb; padding: 1px 7px; border-radius: 12px;">Comp Request</span>
+          <span style="font-size: 10px; color: #9ca3af; border: 1px solid #e5e7eb; padding: 1px 7px; border-radius: 12px;">Needs Decision</span>
+        </div>
+
+      </div>
+
+      <!-- Tabs -->
+      <div style="background: white; border-bottom: 2px solid #e5e7eb;">
+        <div style="display: flex; align-items: center; padding: 0 12px;">
+          <div style="display: flex; gap: 0; flex: 1;">
+            <div style="padding: 8px 10px; font-size: 11px; font-weight: 700; color: #003580; border-bottom: 2px solid #003580; margin-bottom: -2px;">Timeline</div>
+            <div style="padding: 8px 10px; font-size: 11px; color: #6b7280;">Messages (10)</div>
+            <div style="padding: 8px 10px; font-size: 11px; color: #6b7280;">Photos (2)</div>
+          </div>
+          <div style="color: #6b7280; font-size: 14px; padding: 4px;">▼</div>
+        </div>
+      </div>
+
+      <!-- Timeline preview -->
+      <div style="background: white; padding: 10px 12px; border-bottom: 1px solid #e5e7eb;">
+        <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <div style="width: 22px; height: 22px; background: #e5e7eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0;">👤</div>
+          <div>
+            <div style="font-size: 10px; color: #6b7280;">Guest request · 9:04 AM</div>
+            <div style="font-size: 11px; color: #111; font-style: italic;">"AC not working, it's very hot in here"</div>
+          </div>
+        </div>
+        <div style="text-align: center; font-size: 10px; color: #9ca3af;">↓ timeline continues…</div>
+      </div>
+
+      <div style="background: white; border-top: 1px solid #e5e7eb; padding: 10px 12px;">
+        <button style="width: 100%; background: #003580; color: white; border: none; border-radius: 8px; padding: 10px; font-size: 12px; font-weight: 700;">Resolve Issue</button>
+      </div>
+
+    </div>
+  </div>
+</div>

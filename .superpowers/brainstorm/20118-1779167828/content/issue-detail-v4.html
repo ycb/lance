@@ -1,0 +1,189 @@
+<h2>IssueDetail V4 — Layout Proposal</h2>
+<p class="subtitle">Two states: context expanded (default) vs. collapsed for resolution</p>
+
+<div class="split" style="gap: 32px; align-items: flex-start;">
+
+  <!-- STATE 1: Expanded (default) -->
+  <div class="mockup" style="max-width: 280px;">
+    <div class="mockup-header">State 1 — Context Open (default)</div>
+    <div class="mockup-body" style="padding: 0; font-size: 12px; background: #f8f9fa;">
+
+      <!-- AppHeader -->
+      <div style="background: #003580; color: white; padding: 10px 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 16px;">←</span>
+        <span style="font-weight: 700; font-size: 13px;">AC Comp Request</span>
+        <span style="margin-left: auto; background: #dc2626; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px;">Decide</span>
+      </div>
+
+      <!-- IssueHeader sticky -->
+      <div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 10px 12px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+          <span style="background: #fee2e2; color: #dc2626; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600;">Comp Request</span>
+          <span style="background: #fef3c7; color: #b45309; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600;">Needs Decision</span>
+        </div>
+        <div style="font-weight: 700; font-size: 12px; color: #111;">Room 412 · Alex Chen</div>
+        <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+          <div style="width: 18px; height: 18px; background: #003580; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 8px; font-weight: 700;">SM</div>
+          <span style="color: #6b7280; font-size: 11px;">Sarah M. · Supervisor · 47 min</span>
+        </div>
+      </div>
+
+      <!-- Context tabs + chevron -->
+      <div style="background: white; border-bottom: 2px solid #e5e7eb;">
+        <div style="display: flex; align-items: center; padding: 0 12px;">
+          <div style="display: flex; gap: 0; flex: 1;">
+            <div style="padding: 8px 10px; font-size: 11px; font-weight: 700; color: #003580; border-bottom: 2px solid #003580; margin-bottom: -2px;">Timeline</div>
+            <div style="padding: 8px 10px; font-size: 11px; color: #6b7280;">Messages (10)</div>
+            <div style="padding: 8px 10px; font-size: 11px; color: #6b7280;">Photos (2)</div>
+          </div>
+          <div style="color: #6b7280; font-size: 14px; padding: 4px; cursor: pointer;">▼</div>
+        </div>
+      </div>
+
+      <!-- Tab content: Timeline (scrollable region) -->
+      <div style="background: white; padding: 10px 12px; max-height: 200px; overflow-y: auto; border-bottom: 1px solid #e5e7eb;">
+
+        <!-- Guest origin -->
+        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+          <div style="width: 24px; height: 24px; background: #e5e7eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; shrink: 0;">👤</div>
+          <div style="background: #f3f4f6; border-radius: 8px; padding: 7px 9px; flex: 1;">
+            <div style="font-size: 10px; color: #6b7280; margin-bottom: 2px;">Guest request · 9:04 AM</div>
+            <div style="font-size: 11px; color: #111;">"AC not working, it's very hot in here"</div>
+          </div>
+        </div>
+
+        <!-- AI action card -->
+        <div style="background: #f3f4f6; border-radius: 8px; padding: 7px 9px; margin-bottom: 10px; margin-left: 4px;">
+          <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px;">
+            <span style="background: #9ca3af; color: white; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 3px;">AI</span>
+            <span style="font-size: 10px; color: #374151;">Acknowledged guest · matched SOP: Equipment Failure · dispatched Marcus T.</span>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <span style="font-size: 10px; color: #003580; text-decoration: underline;">Why?</span>
+            <span style="font-size: 10px; color: #6b7280; text-decoration: underline;">This looks wrong</span>
+          </div>
+        </div>
+
+        <!-- Staff step -->
+        <div style="display: flex; gap: 8px; margin-bottom: 10px;">
+          <div style="width: 24px; height: 24px; background: #dbeafe; border: 2px solid #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 700; color: #1d4ed8;">MT</div>
+          <div style="flex: 1;">
+            <div style="font-size: 10px; font-weight: 600; color: #111;">Marcus T. · Maintenance</div>
+            <div style="font-size: 10px; color: #6b7280;">Inspect + repair AC unit</div>
+            <div style="font-size: 10px; color: #6b7280; font-style: italic; margin-top: 2px;">"Compressor failure — repair will take 24h+"</div>
+          </div>
+          <span style="background: #d1fae5; color: #065f46; font-size: 9px; padding: 1px 5px; border-radius: 4px; height: fit-content; margin-top: 2px;">Done</span>
+        </div>
+
+        <!-- AI action card 2 -->
+        <div style="background: #f3f4f6; border-radius: 8px; padding: 7px 9px; margin-bottom: 10px; margin-left: 4px;">
+          <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px;">
+            <span style="background: #9ca3af; color: white; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 3px;">AI</span>
+            <span style="font-size: 10px; color: #374151;">Repair &gt;24h — activated room move branch. Dispatched Maria H. to prep Room 408.</span>
+          </div>
+        </div>
+
+        <!-- more steps... -->
+        <div style="text-align: center; color: #9ca3af; font-size: 10px; padding: 4px;">+ 5 more events</div>
+      </div>
+
+      <!-- Sticky bottom bar -->
+      <div style="background: white; border-top: 1px solid #e5e7eb; padding: 10px 12px;">
+        <button style="width: 100%; background: #003580; color: white; border: none; border-radius: 8px; padding: 10px; font-size: 12px; font-weight: 700;">Resolve Issue</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STATE 2: Tabs collapsed, resolution visible -->
+  <div class="mockup" style="max-width: 280px;">
+    <div class="mockup-header">State 2 — Tabs Collapsed, Resolution Open</div>
+    <div class="mockup-body" style="padding: 0; font-size: 12px; background: #f8f9fa;">
+
+      <!-- AppHeader -->
+      <div style="background: #003580; color: white; padding: 10px 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 16px;">←</span>
+        <span style="font-weight: 700; font-size: 13px;">AC Comp Request</span>
+        <span style="margin-left: auto; background: #dc2626; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px;">Decide</span>
+      </div>
+
+      <!-- IssueHeader sticky -->
+      <div style="background: white; border-bottom: 1px solid #e5e7eb; padding: 10px 12px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+          <span style="background: #fee2e2; color: #dc2626; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600;">Comp Request</span>
+          <span style="background: #fef3c7; color: #b45309; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600;">Needs Decision</span>
+        </div>
+        <div style="font-weight: 700; font-size: 12px; color: #111;">Room 412 · Alex Chen</div>
+        <div style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+          <div style="width: 18px; height: 18px; background: #003580; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 8px; font-weight: 700;">SM</div>
+          <span style="color: #6b7280; font-size: 11px;">Sarah M. · Supervisor · 47 min</span>
+        </div>
+      </div>
+
+      <!-- Context tabs collapsed -->
+      <div style="background: white; border-bottom: 1px solid #e5e7eb;">
+        <div style="display: flex; align-items: center; padding: 0 12px;">
+          <div style="display: flex; gap: 0; flex: 1; opacity: 0.5;">
+            <div style="padding: 8px 10px; font-size: 11px; font-weight: 700; color: #003580; border-bottom: 2px solid #003580; margin-bottom: -2px;">Timeline</div>
+            <div style="padding: 8px 10px; font-size: 11px; color: #6b7280;">Messages (10)</div>
+            <div style="padding: 8px 10px; font-size: 11px; color: #6b7280;">Photos (2)</div>
+          </div>
+          <div style="color: #003580; font-size: 14px; padding: 4px; font-weight: 700;">▲</div>
+        </div>
+      </div>
+
+      <!-- AI summary callout -->
+      <div style="background: #eff6ff; border-left: 3px solid #003580; margin: 10px 12px; padding: 8px 10px; border-radius: 0 6px 6px 0;">
+        <div style="font-size: 10px; font-weight: 700; color: #003580; margin-bottom: 2px;">AI Summary</div>
+        <div style="font-size: 10px; color: #374151;">Guest relocated to Room 408. Comp request exceeds $100 frontline threshold — supervisor authorization required.</div>
+      </div>
+
+      <!-- Resolution options -->
+      <div style="padding: 0 12px; display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+
+        <div style="border: 2px solid #003580; border-radius: 8px; padding: 8px 10px; background: #eff6ff; display: flex; align-items: center; gap: 8px;">
+          <div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #003580; background: #003580; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 6px; height: 6px; background: white; border-radius: 50%;"></div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 11px; font-weight: 700; color: #111;">Comp one night · $195</div>
+          </div>
+          <span style="background: #003580; color: white; font-size: 9px; padding: 1px 5px; border-radius: 3px;">Recommended</span>
+        </div>
+
+        <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; background: white; display: flex; align-items: center; gap: 8px;">
+          <div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #d1d5db;"></div>
+          <div style="flex: 1;">
+            <div style="font-size: 11px; font-weight: 600; color: #111;">F&amp;B credit · $<span style="text-decoration: underline; color: #003580;">75</span> ✏️</div>
+          </div>
+        </div>
+
+        <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; background: white; display: flex; align-items: center; gap: 8px;">
+          <div style="width: 14px; height: 14px; border-radius: 50%; border: 2px solid #d1d5db;"></div>
+          <div style="flex: 1;">
+            <div style="font-size: 11px; color: #374151;">Decline with apology</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sticky bottom bar — "Next" active -->
+      <div style="background: white; border-top: 1px solid #e5e7eb; padding: 10px 12px;">
+        <button style="width: 100%; background: #003580; color: white; border: none; border-radius: 8px; padding: 10px; font-size: 12px; font-weight: 700;">Next: Draft Message →</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top: 24px;">
+  <h3>Key behaviours</h3>
+  <ul style="font-size: 13px; color: #374151; line-height: 1.8; margin: 0; padding-left: 20px;">
+    <li><strong>▼ chevron</strong> collapses the tab content area (tabs header stays visible, ▲ to re-expand)</li>
+    <li><strong>Tapping "Resolve Issue"</strong> auto-collapses tabs + reveals resolution options in one tap</li>
+    <li><strong>Sticky bottom bar CTA</strong> changes: "Resolve Issue" → "Next: Draft Message →" → "Send &amp; Close"</li>
+    <li><strong>Draft &amp; Send step</strong> still slides in from right (keeps two-step mental model)</li>
+    <li>Tab content has a fixed max-height with internal scroll — never pushes resolution offscreen</li>
+  </ul>
+</div>

@@ -25,7 +25,7 @@ function DeptSquare({ deptId, status }) {
         boxShadow: isActive ? `0 0 0 3px ${color}` : 'none',
       }}
     >
-      <span style={{ fontSize: 9, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
+      <span style={{ fontSize: 12, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
         {abbr}
       </span>
     </div>

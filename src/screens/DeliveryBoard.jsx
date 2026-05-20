@@ -236,9 +236,10 @@ function filterCommitments(all, filter) {
 }
 
 export function DeliveryBoard() {
-  const { advance, goTo, compResolved } = useDemoFlow()
+  const { advance, goTo, compResolved, boardFilter, setBoardFilter } = useDemoFlow()
   const [activeTab, setActiveTab] = useState('issues')
-  const [filter, setFilter] = useState('critical')
+  const filter = boardFilter
+  const setFilter = setBoardFilter
 
   const acCard = compResolved ? {
     ...commitments.acComp,

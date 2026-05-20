@@ -1,13 +1,13 @@
 // src/data/scenario.js
 
 export const DEPT = {
-  FD:  { id: 'FD',  label: 'Front Desk',    abbr: 'FD', color: '#3363AC', count: 4  },
-  FB:  { id: 'FB',  label: 'F&B',           abbr: 'FB', color: '#FBC102', count: 12 },
-  RW:  { id: 'RW',  label: 'Recreation',    abbr: 'R',  color: '#7CCB00', count: 6  },
-  HK:  { id: 'HK',  label: 'Housekeeping',  abbr: 'H',  color: '#39B2B4', count: 18 },
-  ME:  { id: 'ME',  label: 'Maintenance',   abbr: 'M',  color: '#E15F00', count: 6  },
-  SEC: { id: 'SEC', label: 'Security',      abbr: 'SE', color: '#567076', count: 3  },
-  SUP: { id: 'SUP', label: 'Supervisor',    abbr: 'SU', color: '#002E5A', count: 1  },
+  FD:  { id: 'FD',  label: 'Front Desk',    abbr: 'FD', color: '#3363AC', count: 8  },
+  FB:  { id: 'FB',  label: 'F&B',           abbr: 'FB', color: '#FBC102', count: 26 },
+  RW:  { id: 'RW',  label: 'Recreation',    abbr: 'R',  color: '#7CCB00', count: 5  },
+  HK:  { id: 'HK',  label: 'Housekeeping',  abbr: 'H',  color: '#39B2B4', count: 52 },
+  ME:  { id: 'ME',  label: 'Maintenance',   abbr: 'M',  color: '#E15F00', count: 9  },
+  SEC: { id: 'SEC', label: 'Security',      abbr: 'SE', color: '#567076', count: 6  },
+  SUP: { id: 'SUP', label: 'Supervisor',    abbr: 'SU', color: '#002E5A', count: 4  },
 }
 
 export const DEPARTMENTS = Object.values(DEPT)

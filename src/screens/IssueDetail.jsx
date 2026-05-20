@@ -47,10 +47,11 @@ function getDraftEmail(optionId, fbAmount) {
 }
 
 function getToastMessage(optionId, fbAmount) {
-  if (optionId === 'comp_night') return 'Rm 408 notified · $195 comp issued'
-  if (optionId === 'comp_fb') return `Rm 408 notified · ${fbAmount} F&B credit issued`
-  if (optionId === 'comp_none') return 'Rm 408 notified · Apology sent'
-  return 'Rm 408 notified · Response sent'
+  const suffix =
+    optionId === 'comp_night' ? '$195 comp issued' :
+    optionId === 'comp_fb'    ? `${fbAmount} F&B credit issued` :
+    optionId === 'comp_none'  ? 'Apology sent' : 'Response sent'
+  return `Nina Patel · Rm 408 moved to Resolved · ${suffix}`
 }
 
 // ─── Resolution picker overlay ────────────────────────────────────────────────

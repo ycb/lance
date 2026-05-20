@@ -2,7 +2,12 @@
 // Global app header — identical on every screen.
 // Cobalt background, Hilton logo, hotel name, SM avatar with notification badge.
 
+import { useDemoFlow } from '@/store/demoFlow'
+
 export function AppHeader() {
+  const { compResolved } = useDemoFlow()
+  const badgeCount = compResolved ? 5 : 6
+
   return (
     <div
       className="shrink-0 flex items-center px-4 py-2.5 gap-3"
@@ -29,7 +34,7 @@ export function AppHeader() {
           className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 rounded-full flex items-center justify-center text-white font-bold border"
           style={{ background: '#B71234', borderColor: '#002E5A', fontSize: '9px', padding: '0 3px' }}
         >
-          1
+          {badgeCount}
         </div>
       </div>
     </div>

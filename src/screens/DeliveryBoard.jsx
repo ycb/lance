@@ -236,21 +236,11 @@ function filterCommitments(all, filter) {
 }
 
 export function DeliveryBoard() {
-  const { advance, currentIndex } = useDemoFlow()
+  const { advance } = useDemoFlow()
   const [activeTab, setActiveTab] = useState('issues')
   const [filter, setFilter] = useState('critical')
 
-  const acCard = currentIndex >= 2 ? {
-    ...commitments.acComp,
-    severity: 'resolved',
-    stepLabel: 'Comp authorized · $195',
-    currentAssignee: { initials: 'FD', deptId: 'FD', name: 'Front Desk', role: 'Guest Services' },
-    chainSteps: commitments.acComp.chainSteps.map(s =>
-      s.status === 'escalated' ? { ...s, status: 'complete' } : s
-    ),
-  } : commitments.acComp
-
-  const coreIssues  = [acCard, commitments.cabana, commitments.stayExtension]
+  const coreIssues  = [commitments.acComp, commitments.cabana, commitments.stayExtension]
   const filteredCore  = filterCommitments(coreIssues, filter)
   const filteredExtra = filterCommitments(EXTRA_CARDS, filter)
   const allFiltered   = [...filteredCore, ...filteredExtra]

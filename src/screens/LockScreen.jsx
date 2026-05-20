@@ -25,11 +25,11 @@ export function LockScreen() {
         <div className="bg-white/12 backdrop-blur-xl rounded-2xl px-4 py-3.5 border border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: '#002E5A' }}>
-              <span className="font-bold text-sm text-white">SU</span>
+              <span className="font-bold text-sm text-white">SM</span>
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-0.5">
-                <p className="text-xs font-semibold text-white">Lance · The Grand Hilton</p>
+                <p className="text-xs font-semibold text-white">Hilton San Francisco Union Square</p>
                 <p className="text-[10px] text-white/50">now</p>
               </div>
               <p className="text-sm text-white/90 leading-snug font-medium">

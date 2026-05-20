@@ -30,11 +30,11 @@ describe('IssueCard', () => {
     expect(screen.getByText('Linked to T002')).toBeInTheDocument()
   })
 
-  it('renders dept chain with initials for all steps', () => {
+  it('renders dept chain with abbrs for all steps', () => {
     render(<IssueCard commitment={commitments.cabana} onClick={() => {}} />)
-    // cabana chain: RW (complete), HK (active), FB (complete) — all show initials
-    expect(screen.getByText('HK')).toBeInTheDocument()
-    expect(screen.getByText('RW')).toBeInTheDocument()
+    // cabana chain: RW→'R' (complete), HK→'H' (active), FB→'FB' (complete)
+    expect(screen.getByText('R')).toBeInTheDocument()
+    expect(screen.getByText('H')).toBeInTheDocument()
     expect(screen.getByText('FB')).toBeInTheDocument()
   })
 

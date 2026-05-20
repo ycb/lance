@@ -1,8 +1,9 @@
 import { DEPT } from '@/data/scenario'
 
 function DeptSquare({ deptId, status }) {
-  const color = DEPT[deptId]?.color ?? '#9ca3af'
-  const abbr  = deptId.slice(0, 3)
+  const dept  = DEPT[deptId]
+  const color = dept?.color ?? '#9ca3af'
+  const abbr  = dept?.abbr ?? deptId.slice(0, 2)
 
   const isActive  = status === 'active' || status === 'escalated'
   const isPending = status === 'pending' || status === 'skipped'
@@ -24,7 +25,7 @@ function DeptSquare({ deptId, status }) {
         boxShadow: isActive ? `0 0 0 3px ${color}` : 'none',
       }}
     >
-      <span style={{ fontSize: abbr.length > 2 ? 7 : 9, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
+      <span style={{ fontSize: abbr.length === 1 ? 12 : 9, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
         {abbr}
       </span>
     </div>

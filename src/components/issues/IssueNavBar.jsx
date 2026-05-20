@@ -76,7 +76,7 @@ export function IssueNavBar({
       <div className="flex items-center gap-2 px-4 pt-2.5 pb-1">
         <div className="flex-1 min-w-0 flex items-center gap-1.5">
           <p className="font-bold text-sm text-gray-900 truncate">{guest} · {room}</p>
-          <span className="shrink-0 text-gray-400 font-bold text-sm select-none">·</span>
+          <span className="shrink-0 text-gray-900 font-bold text-sm select-none">·</span>
           <div data-testid="nav-loyalty-slot" className="shrink-0 flex items-center">
             <LoyaltyBadge tier={loyaltyTier} />
           </div>

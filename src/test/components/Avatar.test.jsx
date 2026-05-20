@@ -11,7 +11,7 @@ describe('Avatar', () => {
   it('applies department outline color as inline style', () => {
     const { container } = render(<Avatar initials="MT" deptId="ME" status="active" />)
     const el = container.firstChild
-    expect(el.style.outline).toContain('#F97316')
+    expect(el.style.outline).toContain('#E15F00')
   })
 
   it('shows checkmark badge when status is complete', () => {

@@ -1,10 +1,10 @@
 const DEPT_COLORS = {
-  FD:  '#3B82F6',
-  FB:  '#F59E0B',
-  RW:  '#14B8A6',
-  HK:  '#A855F7',
-  ME:  '#F97316',
-  SEC: '#64748B',
+  FD:  '#3363AC',
+  FB:  '#FBC102',
+  RW:  '#7CCB00',
+  HK:  '#39B2B4',
+  ME:  '#E15F00',
+  SEC: '#567076',
   SUP: '#002E5A',
 }
 

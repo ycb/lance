@@ -10,8 +10,8 @@ function DeptSquare({ deptId, status }) {
   return (
     <div
       style={{
-        width: 22,
-        height: 22,
+        width: 28,
+        height: 28,
         borderRadius: 3,
         flexShrink: 0,
         display: 'flex',
@@ -24,7 +24,7 @@ function DeptSquare({ deptId, status }) {
         boxShadow: isActive ? `0 0 0 3px ${color}` : 'none',
       }}
     >
-      <span style={{ fontSize: abbr.length > 2 ? 6 : 7, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
+      <span style={{ fontSize: abbr.length > 2 ? 7 : 9, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>
         {abbr}
       </span>
     </div>
@@ -35,7 +35,7 @@ export function DeptChain({ steps }) {
   if (!steps?.length) return null
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       {steps.map((step, i) => (
         <div key={step.id} style={{ display: 'flex', alignItems: 'center' }}>
           <DeptSquare deptId={step.deptId} status={step.status} />

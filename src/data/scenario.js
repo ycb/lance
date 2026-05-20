@@ -122,12 +122,10 @@ export const commitments = {
       },
     ],
     thread: [
-      { id: 'ct0', type: 'guest', text: "We'd love a cabana for a pool party — 8 guests, ready by 4pm today.", time: '9:23 AM' },
-      { id: 'ct1', type: 'system', text: 'Matched SOP: Cabana Package. Jordan R. (Recreation) assigned. F&B notified for poolside availability.', time: '9:23 AM' },
-      { id: 'ct2', type: 'staff', initials: 'JR', deptId: 'RW', name: 'Jordan R.', text: 'On it! Setting up Cabana 3 now.', time: '9:25 AM' },
-      { id: 'ct3', type: 'staff', initials: 'JR', deptId: 'RW', name: 'Jordan R.', text: 'Cabana 3 ready — chairs, umbrella, 8 waters.', time: '9:28 AM', hasPhoto: true, photoEmoji: '🏖️', photoCaption: 'Cabana 3 — ready' },
-      { id: 'ct4', type: 'system', text: 'Step 1 complete. Maria H. (Housekeeping) assigned: extra towels to pool level.', time: '9:28 AM' },
-      { id: 'ct5', type: 'staff', initials: 'MH', deptId: 'HK', name: 'Maria H.', text: 'Got it — on my way, 10 min out.', time: '9:31 AM' },
+      { id: 'ct0', type: 'staff', initials: 'JR', deptId: 'RW', name: 'Jordan R.', text: 'On it! Setting up Cabana 3 now.', time: '9:25 AM' },
+      { id: 'ct1', type: 'staff', initials: 'JR', deptId: 'RW', name: 'Jordan R.', text: 'Cabana 3 ready — chairs, umbrella, 8 waters.', time: '9:28 AM', hasPhoto: true, photoEmoji: '🏖️', photoCaption: 'Cabana 3 — ready' },
+      { id: 'ct2', type: 'you',   initials: 'SM', deptId: 'SUP', name: 'Sarah M.', text: 'Nice work. Maria, can you head down with extra towels?', time: '9:29 AM' },
+      { id: 'ct3', type: 'staff', initials: 'MH', deptId: 'HK',  name: 'Maria H.', text: 'Got it — on my way, 10 min out.', time: '9:31 AM' },
     ],
     timeline: [
       {

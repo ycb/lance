@@ -151,9 +151,15 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
 
 // ─── Draft & send overlay ─────────────────────────────────────────────────────
 
-function DraftItem({ id, icon, label, draft, viewed, onOpen, editMode }) {
+function DraftItem({ id, icon, label, draft, viewed, onOpen, onEditChange }) {
   const [text, setText] = useState(draft)
   const [editing, setEditing] = useState(false)
+
+  const toggleEdit = () => {
+    const next = !editing
+    setEditing(next)
+    onEditChange?.(next)
+  }
 
   return (
     <AccordionItem
@@ -166,12 +172,12 @@ function DraftItem({ id, icon, label, draft, viewed, onOpen, editMode }) {
         style={{ borderRadius: 0 }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-          {editMode && (
+          {editing && (
             <span
               style={{
                 width: 18, height: 18, borderRadius: '50%', background: '#ef4444',
-                color: 'white', fontSize: 12, fontWeight: 700, lineHeight: '18px',
-                textAlign: 'center', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'white', fontSize: 12, fontWeight: 700, flexShrink: 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}
               onClick={e => e.stopPropagation()}
             >−</span>
@@ -189,7 +195,7 @@ function DraftItem({ id, icon, label, draft, viewed, onOpen, editMode }) {
             <p style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.5 }}>Draft</p>
             <button
               style={{ fontSize: 11, color: '#3363AC', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer' }}
-              onClick={() => setEditing(e => !e)}
+              onClick={toggleEdit}
             >
               {editing ? 'Done' : 'Edit'}
             </button>
@@ -216,10 +222,13 @@ function DraftItem({ id, icon, label, draft, viewed, onOpen, editMode }) {
 function SendView({ selected, fbAmount, onBack, onSend }) {
   const smsDraft   = getDraftSMS(selected, fbAmount)
   const emailDraft = getDraftEmail(selected, fbAmount)
-  const [viewed, setViewed]   = useState(new Set(['sms']))
-  const [editMode, setEditMode] = useState(false)
+  const [viewed, setViewed]     = useState(new Set(['sms']))
+  const [editingIds, setEditingIds] = useState(new Set())
 
-  const markViewed = (id) => setViewed(prev => new Set([...prev, id]))
+  const markViewed    = (id) => setViewed(prev => new Set([...prev, id]))
+  const handleEditChange = (id) => (isEditing) =>
+    setEditingIds(prev => { const s = new Set(prev); isEditing ? s.add(id) : s.delete(id); return s })
+  const anyEditing  = editingIds.size > 0
   const allReviewed = viewed.has('sms') && viewed.has('email')
 
   return (
@@ -234,12 +243,6 @@ function SendView({ selected, fbAmount, onBack, onSend }) {
       <div className="h-12 bg-white border-b border-border flex items-center px-4 shrink-0" style={{ position: 'relative' }}>
         <button className="text-primary text-sm font-medium shrink-0" onClick={onBack}>← Resolution</button>
         <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>Send to Guest</p>
-        <button
-          className="text-primary text-sm font-medium shrink-0 ml-auto"
-          onClick={() => setEditMode(e => !e)}
-        >
-          {editMode ? 'Done' : 'Edit'}
-        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -247,10 +250,10 @@ function SendView({ selected, fbAmount, onBack, onSend }) {
           Approve Final Messaging
         </p>
         <Accordion openMultiple defaultValue={['sms']}>
-          <DraftItem id="sms"   icon="📱" label="Text Message" draft={smsDraft}   viewed={viewed.has('sms')}   onOpen={markViewed} editMode={editMode} />
-          <DraftItem id="email" icon="📧" label="Email"        draft={emailDraft} viewed={viewed.has('email')} onOpen={markViewed} editMode={editMode} />
+          <DraftItem id="sms"   icon="📱" label="Text Message" draft={smsDraft}   viewed={viewed.has('sms')}   onOpen={markViewed} onEditChange={handleEditChange('sms')} />
+          <DraftItem id="email" icon="📧" label="Email"        draft={emailDraft} viewed={viewed.has('email')} onOpen={markViewed} onEditChange={handleEditChange('email')} />
         </Accordion>
-        {editMode && (
+        {anyEditing && (
           <button style={{
             width: '100%', background: 'white', color: '#6b7280',
             border: '1px dashed #d1d5db', borderRadius: 8, padding: 10,

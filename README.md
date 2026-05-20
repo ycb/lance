@@ -4,7 +4,7 @@ A high-fidelity mobile prototype for **Hilton San Francisco Union Square** — o
 
 Lance is an AI-powered operations platform that gives hotel staff a single surface to manage guest issues, coordinate teams, and close the loop — from a push notification to a resolved comp request, in minutes.
 
-<img width="436" height="893" alt="image" src="https://github.com/user-attachments/assets/be9c3e2d-45d4-43b0-aa53-fc4d276e5781" />
+<img width="429" height="886" alt="image" src="https://github.com/user-attachments/assets/840aea6b-cb03-498c-b9c9-fe6b7adbbd41" />
 
 ---
 

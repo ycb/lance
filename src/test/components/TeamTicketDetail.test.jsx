@@ -26,23 +26,19 @@ describe('TeamTicketDetail', () => {
     expect(screen.getByText('Awaiting completion')).toBeInTheDocument()
   })
 
-  it('backs to the customer ticket and closes to IssueDetail', () => {
+  it('backs to the customer ticket via ← Issue Overview', () => {
     const onBackToCustomerTicket = vi.fn()
-    const onClose = vi.fn()
 
     render(
       <TeamTicketDetail
         teamTicket={ticket}
         originTicket={commitments.acComp.originTicket}
         onBackToCustomerTicket={onBackToCustomerTicket}
-        onClose={onClose}
       />,
     )
 
     fireEvent.click(screen.getByText('← Issue Overview'))
-    fireEvent.click(screen.getByLabelText('Close team ticket'))
 
     expect(onBackToCustomerTicket).toHaveBeenCalledTimes(1)
-    expect(onClose).toHaveBeenCalledTimes(1)
   })
 })

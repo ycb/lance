@@ -78,14 +78,6 @@ export function TeamTicketDetail({ ticket, teamTicket, originTicket, headerTitle
         <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
           {headerTitle}
         </p>
-        <button
-          aria-label="Close team ticket"
-          className="text-sm font-medium shrink-0"
-          style={{ color: '#3363AC', marginLeft: 'auto' }}
-          onClick={onClose}
-        >
-          Close
-        </button>
       </div>
 
       <div className="flex-1 overflow-y-auto">

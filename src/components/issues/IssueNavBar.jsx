@@ -2,7 +2,7 @@
 // Unified issue header: back/elapsed row, origin ticket row, AI summary — one white section.
 
 import { LoyaltyBadge } from '@/components/shared/LoyaltyBadge'
-import { AISummary } from '@/components/shared/AISummary'
+import { IssueSummaryCard } from '@/components/shared/IssueSummaryCard'
 
 function ticketCountText(ticketStats) {
   const total = ticketStats?.total ?? 0
@@ -100,49 +100,18 @@ export function IssueNavBar({
       )}
 
       <div className="px-3 pb-3">
-        <div
-          data-testid="origin-ticket-surface"
-          style={{
-            background: 'white',
-            border: '1px solid #e5e7eb',
-            borderRadius: 7,
-            boxShadow: '0 1px 0 rgba(17, 24, 39, 0.03)',
-            overflow: 'hidden',
-          }}
-        >
-          {!hasCustomerTicket && checkIn && nights && ticketStats && (
-            <div className="px-3 pt-2 pb-1" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 10, color: '#6b7280' }}>
+        <IssueSummaryCard
+          title={title}
+          sourceLine={sourceLine}
+          aiSummary={aiSummary}
+          metaLine={metaLine}
+          contextHeader={!hasCustomerTicket && checkIn && nights && ticketStats ? (
+            <>
               <span style={{ flex: 1, minWidth: 0 }}>Check-in {checkIn} · {nights} nights · {ticketCountText(ticketStats)}</span>
               <span style={{ color: '#6b7280', flexShrink: 0 }}>{elapsed}</span>
-            </div>
-          )}
-
-          {/* Origin complaint row */}
-          {title && (
-            <div className="px-3 py-2">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <p style={{ flex: 1, minWidth: 0, fontSize: 12, fontWeight: 700, color: '#111827' }}>{title}</p>
-              </div>
-              <p style={{ fontSize: 9, color: '#9ca3af', marginTop: 1 }}>
-                {sourceLine}
-              </p>
-            </div>
-          )}
-
-          {/* AI Summary */}
-          {aiSummary && (
-            <div className="px-3 pb-2">
-              <AISummary variant="badge" text={aiSummary} />
-            </div>
-          )}
-
-          {/* Lower-level metadata: linked ticket + team ticket count */}
-          {metaLine && (
-            <p className="px-3 pb-2" style={{ fontSize: 9, color: '#9ca3af' }}>
-              {metaLine}
-            </p>
-          )}
-        </div>
+            </>
+          ) : null}
+        />
       </div>
     </div>
   )

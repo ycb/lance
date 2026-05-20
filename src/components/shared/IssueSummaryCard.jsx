@@ -91,7 +91,7 @@ export function IssueSummaryCard({
             </div>
             {assignee && (
               <div>
-                <p style={{ fontSize: 9, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 4, textAlign: 'right' }}>Assigned</p>
+                <p style={{ fontSize: 9, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: 4, textAlign: 'right' }}>Currently Assigned</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
                   <Avatar
                     initials={assignee.initials}

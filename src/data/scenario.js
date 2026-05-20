@@ -1,12 +1,12 @@
 // src/data/scenario.js
 
 export const DEPT = {
-  FD:  { id: 'FD',  label: 'Front Desk',    abbr: 'FD',  color: '#3B82F6', count: 4  },
-  FB:  { id: 'FB',  label: 'F&B',           abbr: 'FB',  color: '#F59E0B', count: 12 },
-  RW:  { id: 'RW',  label: 'Recreation',    abbr: 'RW',  color: '#14B8A6', count: 6  },
-  HK:  { id: 'HK',  label: 'Housekeeping',  abbr: 'HK',  color: '#A855F7', count: 18 },
-  ME:  { id: 'ME',  label: 'Maintenance',   abbr: 'ME',  color: '#F97316', count: 6  },
-  SEC: { id: 'SEC', label: 'Security',      abbr: 'SEC', color: '#64748B', count: 3  },
+  FD:  { id: 'FD',  label: 'Front Desk',    abbr: 'FD',  color: '#3363AC', count: 4  },
+  FB:  { id: 'FB',  label: 'F&B',           abbr: 'FB',  color: '#FBC102', count: 12 },
+  RW:  { id: 'RW',  label: 'Recreation',    abbr: 'RW',  color: '#7CCB00', count: 6  },
+  HK:  { id: 'HK',  label: 'Housekeeping',  abbr: 'HK',  color: '#39B2B4', count: 18 },
+  ME:  { id: 'ME',  label: 'Maintenance',   abbr: 'ME',  color: '#E15F00', count: 6  },
+  SEC: { id: 'SEC', label: 'Security',      abbr: 'SEC', color: '#567076', count: 3  },
   SUP: { id: 'SUP', label: 'Supervisor',    abbr: 'SUP', color: '#002E5A', count: 1  },
 }
 

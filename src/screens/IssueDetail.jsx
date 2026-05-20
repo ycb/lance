@@ -390,7 +390,7 @@ function TabBar({ active, onChange, counts }) {
 // ─── Main IssueDetail ─────────────────────────────────────────────────────────
 
 export function IssueDetail() {
-  const { currentState, advance } = useDemoFlow()
+  const { currentState, advance, goTo } = useDemoFlow()
   const commitment = COMMITMENT_MAP[currentState]
 
   const [tab, setTab]               = useState('tickets')
@@ -455,7 +455,7 @@ export function IssueDetail() {
             teamTickets={commitment.teamTickets}
             originChannel={commitment.originChannel}
             aiSummary={commitment.aiSummary ?? commitment.summaryBrief}
-            onBack={() => {}}
+            onBack={() => goTo('BOARD')}
             onOriginTicketPress={() => setShowOriginDetail(true)}
           />
 

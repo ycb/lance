@@ -19,5 +19,9 @@ export const useDemoFlow = create((set, get) => ({
       set({ currentIndex: next, currentState: DEMO_STATES[next] })
     }
   },
+  goTo: (state) => {
+    const index = DEMO_STATES.indexOf(state)
+    if (index !== -1) set({ currentIndex: index, currentState: state })
+  },
   reset: () => set({ currentIndex: 0, currentState: DEMO_STATES[0] }),
 }))

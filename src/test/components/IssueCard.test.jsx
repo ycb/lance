@@ -25,19 +25,16 @@ describe('IssueCard', () => {
     expect(screen.getByText(/Guest experienced unplanned room move/)).toBeInTheDocument()
   })
 
-  it('shows linked ticket footer when present', () => {
+  it('shows linked ticket in chain footer when present', () => {
     render(<IssueCard commitment={commitments.acComp} onClick={() => {}} />)
     expect(screen.getByText('Linked to T002')).toBeInTheDocument()
   })
 
-  it('shows Decide badge for needs_decision', () => {
-    render(<IssueCard commitment={commitments.acComp} onClick={() => {}} />)
-    expect(screen.getByText('Decide')).toBeInTheDocument()
-  })
-
-  it('shows assignee name', () => {
+  it('renders dept chain for active commitment', () => {
     render(<IssueCard commitment={commitments.cabana} onClick={() => {}} />)
-    expect(screen.getByText('Maria H.')).toBeInTheDocument()
+    // Active step (HK) shows dept abbr; complete steps show ✓
+    expect(screen.getByText('HK')).toBeInTheDocument()
+    expect(screen.getAllByText('✓').length).toBeGreaterThan(0)
   })
 
   it('calls onClick when tapped', () => {
@@ -51,15 +48,5 @@ describe('IssueCard', () => {
     const onClick = vi.fn()
     render(<IssueCard commitment={commitments.stayExtension} onClick={onClick} />)
     expect(screen.getByRole('button')).toBeDisabled()
-  })
-
-  it('shows step indicator for in-progress commitment', () => {
-    render(<IssueCard commitment={commitments.cabana} onClick={() => {}} />)
-    expect(screen.getByText('Step 2 of 3')).toBeInTheDocument()
-  })
-
-  it('does not show step indicator for resolved commitment', () => {
-    render(<IssueCard commitment={commitments.stayExtension} onClick={() => {}} />)
-    expect(screen.queryByText(/Step \d+ of \d+/)).not.toBeInTheDocument()
   })
 })

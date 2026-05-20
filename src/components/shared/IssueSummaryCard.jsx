@@ -2,7 +2,7 @@
 
 import { AISummary } from '@/components/shared/AISummary'
 import { Avatar } from '@/components/shared/Avatar'
-import { Badge } from '@/components/ui/badge'
+import { DeptChain } from '@/components/shared/DeptChain'
 
 export function IssueSummaryCard({
   title,
@@ -13,13 +13,15 @@ export function IssueSummaryCard({
   guest,
   room,
   elapsed,
-  // Optional: assignee row shown below metaLine
+  // Optional: chain footer (board only)
   assignee,
   severity,
-  stepIndicator,
+  chainSteps,
   // Optional: IssueNavBar fallback when there is no originTicket
   contextHeader,
 }) {
+  const hasChainFooter = chainSteps?.length > 0
+
   return (
     <div
       data-testid="origin-ticket-surface"
@@ -63,46 +65,42 @@ export function IssueSummaryCard({
         </div>
       )}
 
-      {/* Linked ticket / lower metadata */}
-      {metaLine && (
+      {/* metaLine — standalone for IssueNavBar (no chain footer) */}
+      {metaLine && !hasChainFooter && (
         <p className="px-3 pb-2" style={{ fontSize: 9, color: '#9ca3af' }}>
           {metaLine}
         </p>
       )}
 
-      {/* Board: assignee row */}
-      {assignee && (
+      {/* Chain footer: metaLine + assignee avatar | dept chain (board only) */}
+      {hasChainFooter && (
         <div
           className="px-3 pb-3"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderTop: '1px solid #f3f4f6',
-            paddingTop: 8,
-          }}
+          style={{ borderTop: '1px solid #f3f4f6', paddingTop: 8, marginTop: 2 }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <Avatar
-              initials={assignee.initials}
-              deptId={assignee.deptId}
-              status={
-                severity === 'needs_decision' ? 'escalated'
-                : severity === 'resolved'     ? 'complete'
-                : 'active'
-              }
-              size="sm"
-            />
-            <span style={{ fontSize: 12, color: '#6b7280' }}>{assignee.name}</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            {stepIndicator && (
-              <span style={{ fontSize: 10, color: '#9ca3af' }}>{stepIndicator}</span>
+          {/* Row 1: linked ticket label left, current assignee avatar right */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+            {metaLine ? (
+              <p style={{ fontSize: 9, color: '#9ca3af' }}>{metaLine}</p>
+            ) : (
+              <div />
             )}
-            {severity === 'needs_decision' && (
-              <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Decide</Badge>
+            {assignee && (
+              <Avatar
+                initials={assignee.initials}
+                deptId={assignee.deptId}
+                status={
+                  severity === 'needs_decision' ? 'escalated'
+                  : severity === 'resolved'     ? 'complete'
+                  : 'active'
+                }
+                size="sm"
+              />
             )}
           </div>
+
+          {/* Row 2: dept chain */}
+          <DeptChain steps={chainSteps} />
         </div>
       )}
     </div>

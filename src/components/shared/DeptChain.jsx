@@ -20,9 +20,8 @@ function DeptSquare({ deptId, status }) {
         justifyContent: 'center',
         background: color,
         opacity: isPending ? 0.3 : 1,
-        outline: isActive ? '2px solid white' : 'none',
-        outlineOffset: 1,
-        boxShadow: isActive ? `0 0 0 3px ${color}` : 'none',
+        border: isActive ? '2px solid rgba(255,255,255,0.75)' : '2px solid transparent',
+        boxSizing: 'border-box',
       }}
     >
       <span style={{ fontSize: 12, color: 'white', fontWeight: 700, letterSpacing: -0.2 }}>

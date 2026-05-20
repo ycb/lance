@@ -36,7 +36,7 @@ export function DeptChain({ steps }) {
   if (!steps?.length) return null
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       {steps.map((step, i) => (
         <div key={step.id} style={{ display: 'flex', alignItems: 'center' }}>
           <DeptSquare deptId={step.deptId} status={step.status} />

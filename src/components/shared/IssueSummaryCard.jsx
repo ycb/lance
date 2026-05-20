@@ -72,35 +72,38 @@ export function IssueSummaryCard({
         </p>
       )}
 
-      {/* Chain footer: metaLine + assignee avatar | dept chain (board only) */}
+      {/* Chain footer (board only) */}
       {hasChainFooter && (
         <div
           className="px-3 pb-3"
           style={{ borderTop: '1px solid #f3f4f6', paddingTop: 8, marginTop: 2 }}
         >
-          {/* Row 1: linked ticket label left, current assignee avatar right */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-            {metaLine ? (
-              <p style={{ fontSize: 9, color: '#9ca3af' }}>{metaLine}</p>
-            ) : (
-              <div />
-            )}
+          {/* metaLine on its own line above chain */}
+          {metaLine && (
+            <p style={{ fontSize: 9, color: '#9ca3af', marginBottom: 6 }}>{metaLine}</p>
+          )}
+
+          {/* Chain left, assignee right */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <DeptChain steps={chainSteps} />
             {assignee && (
-              <Avatar
-                initials={assignee.initials}
-                deptId={assignee.deptId}
-                status={
-                  severity === 'needs_decision' ? 'escalated'
-                  : severity === 'resolved'     ? 'complete'
-                  : 'active'
-                }
-                size="sm"
-              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
+                <Avatar
+                  initials={assignee.initials}
+                  deptId={assignee.deptId}
+                  status={
+                    severity === 'needs_decision' ? 'escalated'
+                    : severity === 'resolved'     ? 'complete'
+                    : 'active'
+                  }
+                  size="sm"
+                />
+                <span style={{ fontSize: 11, color: '#374151', fontWeight: 500 }}>
+                  {assignee.name}
+                </span>
+              </div>
             )}
           </div>
-
-          {/* Row 2: dept chain */}
-          <DeptChain steps={chainSteps} />
         </div>
       )}
     </div>

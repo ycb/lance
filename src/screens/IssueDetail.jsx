@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'sonner'
 import { useDemoFlow } from '@/store/demoFlow'
-import { AppHeader } from '@/components/layout/AppHeader'
 import { IssueNavBar } from '@/components/issues/IssueNavBar'
 import { TicketChain } from '@/components/issues/TicketChain'
 import { MessagesPanel } from '@/components/issues/MessagesPanel'
@@ -441,8 +440,6 @@ export function IssueDetail() {
     <div className="h-full flex flex-col relative overflow-hidden" style={{ background: '#F4F2F2' }}>
       {!detailOverlayOpen && (
         <>
-          <AppHeader />
-
           <IssueNavBar
             guest={commitment.guest}
             room={commitment.room}

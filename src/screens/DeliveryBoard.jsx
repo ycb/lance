@@ -116,7 +116,7 @@ function GhostCard({ index }) {
 
 // ─── Search + filter bar ─────────────────────────────────────────────────────
 
-const SORT_OPTIONS = ['Severity', 'Elapsed', 'Room #']
+const SORT_OPTIONS = ['Severity', 'Elapsed']
 
 function SearchFilterBar() {
   const [filterOpen, setFilterOpen] = useState(false)

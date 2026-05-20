@@ -36,26 +36,20 @@ export function DeliveryBoard() {
   const allIssues = [acCard, commitments.cabana, commitments.stayExtension]
   const filtered = filterCommitments(allIssues, filter)
 
+  const counts = {
+    all:           allIssues.length,
+    critical:      allIssues.filter(c => c.severity === 'needs_decision').length,
+    'in-progress': allIssues.filter(c => c.severity === 'in_progress').length,
+    resolved:      allIssues.filter(c => c.severity === 'resolved').length,
+  }
+
   return (
     <div className="h-full flex flex-col bg-muted/30">
       <AppHeader />
 
       {activeTab === 'issues' && (
         <>
-          <div className="flex items-center justify-around px-4 py-2 bg-background border-b border-border">
-            {[
-              { label: 'Today', value: 5 },
-              { label: 'Critical', value: 1 },
-              { label: 'In Progress', value: 1 },
-              { label: 'Resolved', value: 3 },
-            ].map(({ label, value }) => (
-              <div key={label} className="flex items-center gap-1">
-                <span className="text-sm font-semibold text-foreground">{value}</span>
-                <span className="text-xs text-muted-foreground">{label}</span>
-              </div>
-            ))}
-          </div>
-          <IssueFilters value={filter} onChange={setFilter} />
+          <IssueFilters value={filter} onChange={setFilter} counts={counts} />
           <motion.div
             className="flex-1 overflow-y-auto px-4 pt-4 pb-2"
             initial={{ opacity: 0 }}

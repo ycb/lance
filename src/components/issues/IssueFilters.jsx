@@ -1,22 +1,39 @@
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+const FILTERS = [
+  { id: 'all',         label: 'All'         },
+  { id: 'critical',    label: 'Critical'    },
+  { id: 'in-progress', label: 'In Progress' },
+  { id: 'resolved',    label: 'Resolved'    },
+]
 
-export function IssueFilters({ value, onChange }) {
+export function IssueFilters({ value, onChange, counts = {} }) {
   return (
-    <Tabs value={value} onValueChange={onChange}>
-      <TabsList className="w-full h-9 bg-muted rounded-none border-b border-border">
-        <TabsTrigger value="all" className="flex-1 text-xs rounded-none data-[state=active]:bg-background data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
-          All
-        </TabsTrigger>
-        <TabsTrigger value="critical" className="flex-1 text-xs rounded-none data-[state=active]:bg-background data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
-          Critical
-        </TabsTrigger>
-        <TabsTrigger value="in-progress" className="flex-1 text-xs rounded-none data-[state=active]:bg-background data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
-          In Progress
-        </TabsTrigger>
-        <TabsTrigger value="resolved" className="flex-1 text-xs rounded-none data-[state=active]:bg-background data-[state=active]:shadow-none data-[state=active]:border-b-2 data-[state=active]:border-primary">
-          Resolved
-        </TabsTrigger>
-      </TabsList>
-    </Tabs>
+    <div style={{ background: 'white', borderBottom: '1px solid #e5e7eb' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-around', padding: '0 8px' }}>
+        {FILTERS.map(f => {
+          const isActive = value === f.id
+          const count = counts[f.id]
+          return (
+            <button
+              key={f.id}
+              onClick={() => onChange(f.id)}
+              style={{
+                padding: '9px 4px',
+                fontSize: 11,
+                fontWeight: isActive ? 700 : 400,
+                color: isActive ? '#002E5A' : '#6b7280',
+                border: 'none',
+                borderBottom: isActive ? '2px solid #002E5A' : '2px solid transparent',
+                marginBottom: -1,
+                background: 'none',
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {f.label}{count != null ? ` (${count})` : ''}
+            </button>
+          )
+        })}
+      </div>
+    </div>
   )
 }

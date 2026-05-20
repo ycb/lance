@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { useDemoFlow } from '@/store/demoFlow'
 import { AppHeader } from '@/components/layout/AppHeader'
-import { BottomNav } from '@/components/layout/BottomNav'
 import { IssueCard } from '@/components/issues/IssueCard'
 import { commitments } from '@/data/scenario'
 
@@ -64,7 +63,6 @@ export function BoardResolved() {
         </button>
       </div>
 
-      <BottomNav activeTab="issues" />
     </div>
   )
 }

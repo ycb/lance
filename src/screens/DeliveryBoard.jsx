@@ -20,7 +20,7 @@ function filterCommitments(all, filter) {
 export function DeliveryBoard() {
   const { advance, currentIndex } = useDemoFlow()
   const [activeTab, setActiveTab] = useState('issues')
-  const [filter, setFilter] = useState('all')
+  const [filter, setFilter] = useState('critical')
 
   // After index 2 (BOARD state), comp is already resolved
   const acCard = currentIndex >= 2 ? {

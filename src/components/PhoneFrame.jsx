@@ -8,6 +8,7 @@ export function PhoneFrame({ children }) {
           height: '844px',
           borderRadius: '44px',
           outline: '10px solid #1a1a1a',
+          transform: 'translateZ(0)',
         }}
       >
         {/* status bar */}

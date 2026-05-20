@@ -72,7 +72,21 @@ export function OriginTicketDetail({ commitment, originEvent, onBack, onLinkedTi
     date: 'May 18, 2026',
   }
   const linkedTicket = commitment.linkedTicket
-  const teamTickets = commitment.teamTickets ?? []
+  const teamTickets = commitment.teamTickets ??
+    (commitment.timeline ?? [])
+      .filter(e => e.type === 'staff_step')
+      .map(e => ({
+        id: e.id,
+        title: e.action,
+        owner: e.name,
+        role: e.role,
+        deptId: e.deptId,
+        status: e.status,
+        time: e.time,
+        date: 'May 18, 2026',
+        description: e.action,
+        outcome: e.outcome ?? null,
+      }))
   const linkedCount = linkedTicket ? 1 : 0
 
   return (

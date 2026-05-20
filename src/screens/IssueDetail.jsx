@@ -11,6 +11,7 @@ import { OriginTicketDetail } from '@/components/issues/OriginTicketDetail'
 import { TeamTicketDetail } from '@/components/issues/TeamTicketDetail'
 import { LinkedTicketDetail } from '@/components/issues/LinkedTicketDetail'
 import { Button } from '@/components/ui/button'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
 import { AISummary } from '@/components/shared/AISummary'
 import { commitments } from '@/data/scenario'
 
@@ -64,9 +65,9 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
       exit={{ x: '100%' }}
       transition={{ type: 'spring', damping: 28, stiffness: 280 }}
     >
-      <div className="h-12 bg-white border-b border-border flex items-center gap-3 px-4 shrink-0">
+      <div className="h-12 bg-white border-b border-border flex items-center px-4 shrink-0" style={{ position: 'relative' }}>
         <button className="text-primary text-sm font-medium shrink-0" onClick={onBack}>← Issue</button>
-        <p className="text-sm font-semibold text-foreground flex-1">Choose Resolution</p>
+        <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>Choose Resolution</p>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
@@ -150,91 +151,32 @@ function ResolutionView({ commitment, selected, setSelected, fbAmount, setFbAmou
 
 // ─── Draft & send overlay ─────────────────────────────────────────────────────
 
-const CHANNELS = [
-  { id: 'sms',   icon: '📱', label: 'Text Message' },
-  { id: 'email', icon: '📧', label: 'Email'        },
-]
-
-function DraftAccordionItem({ step, icon, label, draft, viewed, expanded, onToggle }) {
+function DraftItem({ id, icon, label, draft, viewed, onOpen }) {
   const [text, setText] = useState(draft)
   const [editing, setEditing] = useState(false)
 
   return (
-    <div
-      style={{
-        border: expanded ? '1.5px solid #3363AC' : '1px solid #e5e7eb',
-        borderRadius: 12,
-        overflow: 'hidden',
-        background: 'white',
-      }}
+    <AccordionItem
+      value={id}
+      onOpenChange={(open) => { if (open) onOpen(id) }}
+      style={{ border: '1px solid #e5e7eb', borderRadius: 12, overflow: 'hidden', marginBottom: 10 }}
     >
-      {/* Header row */}
-      <button
-        onClick={onToggle}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          width: '100%',
-          padding: '12px 14px',
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          textAlign: 'left',
-        }}
+      <AccordionTrigger
+        className="px-4 py-3 hover:no-underline hover:bg-gray-50"
+        style={{ borderRadius: 0 }}
       >
-        {/* Step circle */}
-        <span style={{
-          width: 22,
-          height: 22,
-          borderRadius: '50%',
-          background: viewed ? '#002E5A' : '#f3f4f6',
-          color: viewed ? 'white' : '#9ca3af',
-          fontSize: 11,
-          fontWeight: 700,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-        }}>
-          {viewed ? '✓' : step}
-        </span>
-
-        <span style={{ fontSize: 13 }}>{icon}</span>
-
-        <span style={{
-          flex: 1,
-          fontSize: 13,
-          fontWeight: 600,
-          color: '#111827',
-        }}>
-          {label}
-        </span>
-
-        {/* Status chip */}
-        {viewed ? (
-          <span style={{ fontSize: 10, fontWeight: 600, color: '#15803d' }}>Reviewed</span>
-        ) : (
-          <span style={{ fontSize: 10, color: '#9ca3af' }}>Tap to review</span>
-        )}
-
-        {/* Chevron */}
-        <span style={{
-          fontSize: 11,
-          color: '#9ca3af',
-          transform: expanded ? 'rotate(90deg)' : 'rotate(0deg)',
-          transition: 'transform 0.15s ease',
-          marginLeft: 4,
-        }}>▶</span>
-      </button>
-
-      {/* Draft body */}
-      {expanded && (
-        <div style={{ borderTop: '1px solid #f3f4f6' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 14px 4px' }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.5 }}>
-              Draft
-            </p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
+          <span style={{ fontSize: 14 }}>{icon}</span>
+          <span style={{ fontSize: 13, fontWeight: 600, color: '#111827' }}>{label}</span>
+          {viewed && (
+            <span style={{ fontSize: 10, fontWeight: 600, color: '#15803d', marginLeft: 4 }}>✓ Reviewed</span>
+          )}
+        </div>
+      </AccordionTrigger>
+      <AccordionContent className="px-4 pb-0">
+        <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: 10, paddingBottom: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: 0.5 }}>Draft</p>
             <button
               style={{ fontSize: 11, color: '#3363AC', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer' }}
               onClick={() => setEditing(e => !e)}
@@ -242,50 +184,31 @@ function DraftAccordionItem({ step, icon, label, draft, viewed, expanded, onTogg
               {editing ? 'Done' : 'Edit'}
             </button>
           </div>
-          <div style={{ padding: '0 14px 14px' }}>
-            {editing ? (
-              <textarea
-                value={text}
-                onChange={e => setText(e.target.value)}
-                style={{
-                  width: '100%',
-                  fontSize: 12,
-                  lineHeight: 1.5,
-                  color: '#111827',
-                  border: '1px solid #e5e7eb',
-                  borderRadius: 8,
-                  padding: '8px 10px',
-                  minHeight: 100,
-                  resize: 'none',
-                  outline: 'none',
-                  fontFamily: 'inherit',
-                  boxSizing: 'border-box',
-                }}
-              />
-            ) : (
-              <p style={{ fontSize: 12, color: '#374151', lineHeight: 1.55, whiteSpace: 'pre-line' }}>
-                {text}
-              </p>
-            )}
-          </div>
+          {editing ? (
+            <textarea
+              value={text}
+              onChange={e => setText(e.target.value)}
+              style={{
+                width: '100%', fontSize: 12, lineHeight: 1.5, color: '#111827',
+                border: '1px solid #e5e7eb', borderRadius: 8, padding: '8px 10px',
+                minHeight: 100, resize: 'none', outline: 'none', fontFamily: 'inherit', boxSizing: 'border-box',
+              }}
+            />
+          ) : (
+            <p style={{ fontSize: 12, color: '#374151', lineHeight: 1.55, whiteSpace: 'pre-line' }}>{text}</p>
+          )}
         </div>
-      )}
-    </div>
+      </AccordionContent>
+    </AccordionItem>
   )
 }
 
 function SendView({ selected, fbAmount, onBack, onSend }) {
   const smsDraft   = getDraftSMS(selected, fbAmount)
   const emailDraft = getDraftEmail(selected, fbAmount)
+  const [viewed, setViewed] = useState(new Set(['sms']))
 
-  const [expanded, setExpanded] = useState(null)
-  const [viewed, setViewed]     = useState(new Set())
-
-  const toggle = (id) => {
-    setExpanded(prev => prev === id ? null : id)
-    setViewed(prev => new Set([...prev, id]))
-  }
-
+  const markViewed = (id) => setViewed(prev => new Set([...prev, id]))
   const allReviewed = viewed.has('sms') && viewed.has('email')
 
   return (
@@ -297,50 +220,23 @@ function SendView({ selected, fbAmount, onBack, onSend }) {
       exit={{ x: '100%' }}
       transition={{ type: 'spring', damping: 28, stiffness: 280 }}
     >
-      <div className="h-12 bg-white border-b border-border flex items-center gap-3 px-4 shrink-0">
+      <div className="h-12 bg-white border-b border-border flex items-center px-4 shrink-0" style={{ position: 'relative' }}>
         <button className="text-primary text-sm font-medium shrink-0" onClick={onBack}>← Resolution</button>
-        <p className="text-sm font-semibold text-foreground flex-1">Send to Guest</p>
+        <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>Send to Guest</p>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-4">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
           Approve Final Messaging
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <DraftAccordionItem
-            step={1}
-            icon="📱"
-            label="Text Message"
-            draft={smsDraft}
-            viewed={viewed.has('sms')}
-            expanded={expanded === 'sms'}
-            onToggle={() => toggle('sms')}
-          />
-          <DraftAccordionItem
-            step={2}
-            icon="📧"
-            label="Email"
-            draft={emailDraft}
-            viewed={viewed.has('email')}
-            expanded={expanded === 'email'}
-            onToggle={() => toggle('email')}
-          />
-        </div>
-
-        {!allReviewed && (
-          <p style={{ fontSize: 11, color: '#9ca3af', textAlign: 'center', marginTop: 16 }}>
-            Review both drafts to enable sending
-          </p>
-        )}
+        <Accordion openMultiple defaultValue={['sms']}>
+          <DraftItem id="sms"   icon="📱" label="Text Message" draft={smsDraft}   viewed={viewed.has('sms')}   onOpen={markViewed} />
+          <DraftItem id="email" icon="📧" label="Email"        draft={emailDraft} viewed={viewed.has('email')} onOpen={markViewed} />
+        </Accordion>
       </div>
 
       <div className="px-4 pb-6 pt-3 border-t border-border bg-white shrink-0">
-        <Button
-          className="w-full"
-          size="lg"
-          disabled={!allReviewed}
-          onClick={onSend}
-        >
+        <Button className="w-full" size="lg" disabled={!allReviewed} onClick={onSend}>
           Send &amp; Close Issue
         </Button>
       </div>

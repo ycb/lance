@@ -88,7 +88,7 @@ export function OriginTicketDetail({ commitment, originEvent, onBack, onLinkedTi
           ← Issue Overview
         </button>
         <p className="text-sm font-semibold text-foreground" style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)' }}>
-          Full Ticket Details
+          Ticket Details
         </p>
       </div>
 
@@ -97,10 +97,10 @@ export function OriginTicketDetail({ commitment, originEvent, onBack, onLinkedTi
         <section className="px-4 py-3 border-b border-gray-100">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-              <LoyaltyBadge tier={commitment.loyaltyTier} />
               <p style={{ color: '#111827', fontSize: 14, fontWeight: 700, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {commitment.guest}
               </p>
+              <LoyaltyBadge tier={commitment.loyaltyTier} />
             </div>
             <button style={{ color: '#3363AC', fontSize: 11, background: 'transparent', border: 0, whiteSpace: 'nowrap' }} onClick={() => {}}>
               View in PMS →

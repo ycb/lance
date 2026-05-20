@@ -44,7 +44,7 @@ describe('OriginTicketDetail', () => {
       />,
     )
 
-    expect(screen.getByText('Full Ticket Details')).toBeInTheDocument()
+    expect(screen.getByText('Ticket Details')).toBeInTheDocument()
     expect(screen.getByText('Diamond')).toBeInTheDocument()
     expect(screen.getAllByText('Alex Chen').length).toBeGreaterThanOrEqual(2)
     expect(screen.getByText('View in PMS →')).toBeInTheDocument()

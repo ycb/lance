@@ -1,5 +1,4 @@
 const FILTERS = [
-  { id: 'all',         label: 'All'         },
   { id: 'critical',    label: 'Critical'    },
   { id: 'in-progress', label: 'In Progress' },
   { id: 'resolved',    label: 'Resolved'    },
@@ -29,7 +28,7 @@ export function IssueFilters({ value, onChange, counts = {} }) {
                 whiteSpace: 'nowrap',
               }}
             >
-              {f.label}{count != null ? ` (${count})` : ''}
+              {f.id !== 'all' && count != null ? `${f.label} (${count})` : f.label}
             </button>
           )
         })}

@@ -1,11 +1,9 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Avatar } from '@/components/shared/Avatar'
+import { AISummary } from '@/components/shared/AISummary'
+import { Badge } from '@/components/ui/badge'
 
-const BORDER = {
-  needs_decision: 'border-l-4 border-l-destructive',
-  in_progress:    'border-l-4 border-l-green-500',
-  resolved:       'border-l-4 border-l-border',
+function shortDate(date) {
+  return date?.replace(/, \d{4}$/, '') ?? ''
 }
 
 function stepIndicator(chainSteps, severity) {
@@ -19,6 +17,10 @@ function stepIndicator(chainSteps, severity) {
 export function IssueCard({ commitment, onClick }) {
   const isResolved = commitment.severity === 'resolved'
   const indicator  = stepIndicator(commitment.chainSteps, commitment.severity)
+  const title      = commitment.originTicket?.title ?? commitment.summary
+  const sourceLine = commitment.originTicket
+    ? `${commitment.originTicket.source} · ${commitment.originTicket.channel} · ${commitment.originTicket.time} · ${shortDate(commitment.originTicket.date)}`
+    : null
 
   return (
     <button
@@ -26,34 +28,55 @@ export function IssueCard({ commitment, onClick }) {
       onClick={onClick}
       disabled={isResolved}
     >
-      <Card className={`${BORDER[commitment.severity]} shadow-sm`}>
-        <CardContent className="px-4 py-3">
-          {/* top row: badge + elapsed */}
-          <div className="flex items-center justify-between mb-1.5">
-            <Badge
-              variant={commitment.severity === 'needs_decision' ? 'destructive' : 'secondary'}
-              className="text-[10px] px-1.5 py-0"
-            >
-              {commitment.issueType}
-            </Badge>
-            <span className="text-[11px] text-muted-foreground">{commitment.elapsed}</span>
+      <div
+        style={{
+          background: 'white',
+          border: '1px solid #e5e7eb',
+          borderRadius: 10,
+          boxShadow: '0 1px 2px rgba(17, 24, 39, 0.05)',
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{ padding: '12px 14px' }}>
+          {/* Guest · Room + elapsed */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+            <span style={{ fontSize: 11, color: '#6b7280' }}>
+              {commitment.guest} · {commitment.room}
+            </span>
+            <span style={{ fontSize: 11, color: '#9ca3af' }}>{commitment.elapsed}</span>
           </div>
 
-          {/* room + guest */}
-          <p className="text-xs text-muted-foreground">
-            <span>{commitment.room}</span>
-            <span> · </span>
-            <span>{commitment.guest}</span>
+          {/* Title */}
+          <p style={{ fontSize: 13, fontWeight: 700, color: '#111827', marginBottom: sourceLine ? 2 : 8, lineHeight: 1.3 }}>
+            {title}
           </p>
 
-          {/* summary */}
-          <p className="text-sm font-semibold text-foreground mt-0.5 leading-snug">
-            {commitment.summary}
-          </p>
+          {/* Source line */}
+          {sourceLine && (
+            <p style={{ fontSize: 9, color: '#9ca3af', marginBottom: 8 }}>{sourceLine}</p>
+          )}
 
-          {/* assignee row */}
-          <div className="flex items-center justify-between mt-2">
-            <div className="flex items-center gap-1.5">
+          {/* AI Summary */}
+          {commitment.aiSummary && (
+            <div style={{ marginBottom: 8 }}>
+              <AISummary
+                variant="badge"
+                text={commitment.aiSummary}
+                escalationReason={commitment.escalationReason}
+              />
+            </div>
+          )}
+
+          {/* Linked ticket footer */}
+          {commitment.linkedTicket && (
+            <p style={{ fontSize: 9, color: '#9ca3af', marginBottom: 8 }}>
+              Linked to {commitment.linkedTicket.id}
+            </p>
+          )}
+
+          {/* Assignee row */}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <Avatar
                 initials={commitment.currentAssignee.initials}
                 deptId={commitment.currentAssignee.deptId}
@@ -64,24 +87,19 @@ export function IssueCard({ commitment, onClick }) {
                 }
                 size="sm"
               />
-              <span className="text-xs text-muted-foreground">{commitment.currentAssignee.name}</span>
+              <span style={{ fontSize: 12, color: '#6b7280' }}>{commitment.currentAssignee.name}</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               {indicator && (
-                <span className="text-[10px] text-muted-foreground">{indicator}</span>
+                <span style={{ fontSize: 10, color: '#9ca3af' }}>{indicator}</span>
               )}
               {commitment.severity === 'needs_decision' && (
                 <Badge variant="destructive" className="text-[10px] px-1.5 py-0">Decide</Badge>
               )}
-              {commitment.severity === 'in_progress' && (
-                <Badge className="text-[10px] px-1.5 py-0 bg-green-100 text-green-700 hover:bg-green-100 border-0">
-                  In Progress
-                </Badge>
-              )}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </button>
   )
 }

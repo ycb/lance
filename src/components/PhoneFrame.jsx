@@ -32,6 +32,8 @@ export function PhoneFrame({ children }) {
         <div className="absolute inset-0 top-12 overflow-hidden">
           {children}
         </div>
+        {/* toast portal target — sits above content, not clipped */}
+        <div id="phone-portal" className="absolute inset-0 top-12 pointer-events-none" style={{ zIndex: 100 }} />
       </div>
     </div>
   )

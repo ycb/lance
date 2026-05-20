@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { Toaster } from 'sonner'
 import { PhoneFrame } from './components/PhoneFrame'
 import { useDemoFlow } from '@/store/demoFlow'
@@ -24,13 +25,20 @@ function DemoRouter() {
   return screens[currentState] ?? <LockScreen />
 }
 
+function PhoneToaster() {
+  const [container, setContainer] = useState(null)
+  useEffect(() => { setContainer(document.getElementById('phone-portal')) }, [])
+  if (!container) return null
+  return <Toaster position="bottom-center" container={container} />
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <PhoneFrame>
         <DemoRouter />
       </PhoneFrame>
-      <Toaster position="bottom-center" />
+      <PhoneToaster />
     </BrowserRouter>
   )
 }
